@@ -1,0 +1,9 @@
+package com.nanoyatsu.example.clean.poke.domain.poke
+
+import me.sargunvohra.lib.pokekotlin.model.NamedApiResourceList
+import me.sargunvohra.lib.pokekotlin.model.Pokemon
+
+interface PokeRepositoryInterface {
+    fun get(id: Int): Pokemon
+    fun list(offset: Int, limit: Int): NamedApiResourceList
+}

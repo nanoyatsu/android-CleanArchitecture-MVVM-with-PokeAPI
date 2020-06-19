@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data />
+    <data>
+
+        <variable
+            name="data"
+            type="com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,18 +19,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:padding="8dp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="#CCCCCC"
+                app:imageUrl="@{data.imageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_height="24dp"
-                tools:layout_width="24dp"
                 tools:src="@tools:sample/avatars" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -32,20 +43,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAppearance="@style/AppFont.Small"
                 app:layout_constraintStart_toEndOf="@id/icon"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="000" />
+                app:layout_constraintTop_toTopOf="@id/icon"
+                app:numberInt="@{data.number}"
+                tools:text="No.000" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:text="@{data.name}"
+                android:textAppearance="@style/AppFont.Large"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/number"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="poke_no_name" />
+                tools:text="Poke_no_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

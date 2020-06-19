@@ -1,25 +1,26 @@
 package com.nanoyatsu.example.clean.poke.domain.poke
 
+import com.nanoyatsu.example.clean.poke.core.extension.proper
 import me.sargunvohra.lib.pokekotlin.model.NamedApiResource
 
 data class PokeNameImage(
     val name: String,
-    val imageUrl: String?
+    val number: Int
 ) {
-    companion object {
-        fun create(resource: NamedApiResource): PokeNameImage {
-//            val image = pickupId(resource) // fixme resource.url が無い・・・？
-            return PokeNameImage(resource.name, null)
-        }
+    val imageUrl: String
+        get() = generateUrl(number)
 
-        private fun pickupId(apiUrl: String): Int? {
-            return apiUrl.replace(""".*/([0-9])+/\z""".toRegex(), "$1").toIntOrNull()
-        }
-
-        private fun generateUrl(id: Int): String? {
-            val adjusted = String.format("%03d", id)
-            return "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/sprites/${adjusted}MS.png"
-        }
+    /**
+     * @return 画像リソース元 https://github.com/fanzeyi/pokemon.json
+     */
+    private fun generateUrl(id: Int): String {
+        val adjusted = String.format("%03d", id)
+        return "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/sprites/${adjusted}MS.png"
     }
 
+    companion object {
+        fun from(resource: NamedApiResource): PokeNameImage {
+            return PokeNameImage(resource.name.proper(), resource.id)
+        }
+    }
 }

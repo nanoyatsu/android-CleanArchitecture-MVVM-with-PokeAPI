@@ -4,7 +4,7 @@ import com.nanoyatsu.example.clean.poke.core.base.UseCase
 import com.nanoyatsu.example.clean.poke.core.dataclass.Pagination
 import me.sargunvohra.lib.pokekotlin.model.NamedApiResource
 
-class GetPokeList(private val repo: PokeRepositoryInterface) :
+class GetPokeList(private val repo: PokeRepository) :
     UseCase<Pagination, List<NamedApiResource>>() {
     //    UseCase<Pagination, List<PokeNameImage>>() {
     override suspend fun run(params: Pagination): List<NamedApiResource> {

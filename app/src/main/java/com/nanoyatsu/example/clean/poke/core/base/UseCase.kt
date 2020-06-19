@@ -10,7 +10,7 @@ abstract class UseCase<in Params, out Return> where Return : Any {
 
     abstract suspend fun run(params: Params): Return
 
-    fun execute(params: Params, onResult: (Result<Return>) -> Unit) {
+    operator fun invoke(params: Params, onResult: (Result<Return>) -> Unit) {
         val job = CoroutineScope(Dispatchers.IO)
             .async { kotlin.runCatching { run(params) } }
         CoroutineScope(Dispatchers.Main).launch { onResult(job.await()) }

@@ -9,6 +9,9 @@
             name="data"
             type="com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage" />
 
+        <variable
+            name="nav"
+            type="com.nanoyatsu.example.clean.poke.presentation.index.IndexItemViewHolder.Navigation" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,6 +63,17 @@
                 app:layout_constraintStart_toEndOf="@id/number"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Poke_no_name" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/AppButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> nav.transDetail(data.number)}"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_chevron_right_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

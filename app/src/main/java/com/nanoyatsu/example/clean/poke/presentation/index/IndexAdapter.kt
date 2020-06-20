@@ -1,10 +1,8 @@
 package com.nanoyatsu.example.clean.poke.presentation.index
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.nanoyatsu.example.clean.poke.databinding.ItemIndexBinding
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 
 // memo : エラー表示で拡張するのでRecyclerView.ViewHolderのまま
@@ -19,21 +17,6 @@ class IndexAdapter(private val items: List<PokeNameImage>) :
         val data = items[position]
 //        val data = getItem(position)
         (holder as IndexItemViewHolder).bind(data!!)
-    }
-
-    class IndexItemViewHolder(private val binding: ItemIndexBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        companion object {
-            fun from(parent: ViewGroup): IndexItemViewHolder {
-                val bind = ItemIndexBinding
-                    .inflate(LayoutInflater.from(parent.context), parent, false)
-                return IndexItemViewHolder(bind)
-            }
-        }
-
-        fun bind(data: PokeNameImage) {
-            binding.data = data
-        }
     }
 
     companion object {

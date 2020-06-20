@@ -9,5 +9,14 @@
         android:id="@+id/indexFragment"
         android:name="com.nanoyatsu.example.clean.poke.presentation.index.IndexFragment"
         android:label="IndexFragment"
-        tools:layout="@layout/fragment_index" />
+        tools:layout="@layout/fragment_index">
+        <action
+            android:id="@+id/action_indexFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.nanoyatsu.example.clean.poke.presentation.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

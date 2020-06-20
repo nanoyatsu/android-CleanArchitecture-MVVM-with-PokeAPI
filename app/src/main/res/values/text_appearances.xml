@@ -3,6 +3,7 @@
 
     <style name="AppFont" parent="TextAppearance.AppCompat">
         <item name="fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
     <style name="AppFont.Small">

@@ -1,22 +1,22 @@
 package com.nanoyatsu.example.clean.poke.presentation.index
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nanoyatsu.example.clean.poke.databinding.ItemIndexBinding
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 
-class IndexItemViewHolder(private val binding: ItemIndexBinding) :
+class IndexItemViewHolder(
+    private val binding: ItemIndexBinding,
+    private val navigation: Navigation
+) :
     RecyclerView.ViewHolder(binding.root) {
-    private val navigation: Navigation =
-        IndexFragment.Navigation(binding.root.context as Activity)
 
     companion object {
-        fun from(parent: ViewGroup): IndexItemViewHolder {
+        fun from(parent: ViewGroup, navigation: Navigation): IndexItemViewHolder {
             val bind = ItemIndexBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
-            return IndexItemViewHolder(bind)
+            return IndexItemViewHolder(bind, navigation)
         }
     }
 

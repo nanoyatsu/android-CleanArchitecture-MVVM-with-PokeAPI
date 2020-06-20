@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 
 // memo : エラー表示で拡張するのでRecyclerView.ViewHolderのまま
-class IndexAdapter(private val items: List<PokeNameImage>) :
+class IndexAdapter(
+    private val items: List<PokeNameImage>,
+    private val navigation: IndexItemViewHolder.Navigation
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     //class IndexAdapter : PagedListAdapter<PokeNameImage, RecyclerView.ViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return IndexItemViewHolder.from(parent)
+        return IndexItemViewHolder.from(parent, navigation)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

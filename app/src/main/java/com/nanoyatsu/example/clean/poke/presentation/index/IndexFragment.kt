@@ -17,6 +17,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class IndexFragment : Fragment() {
     private lateinit var binding: FragmentIndexBinding
     private val vm: IndexViewModel by viewModel()
+    private val viewHolderNavigation: IndexItemViewHolder.Navigation
+            by lazy { Navigation(requireActivity()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,7 +33,7 @@ class IndexFragment : Fragment() {
         // 描画設定
         binding.index.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.index.adapter = IndexAdapter(emptyList())
+        binding.index.adapter = IndexAdapter(emptyList(), viewHolderNavigation)
 
         // ViewModel設定
         binding.vm = setupVm(vm)
@@ -46,7 +48,7 @@ class IndexFragment : Fragment() {
         vm.list.observe(
             viewLifecycleOwner,
             Observer {
-                binding.index.adapter = IndexAdapter(it)
+                binding.index.adapter = IndexAdapter(it, viewHolderNavigation)
                 binding.index.adapter?.notifyDataSetChanged()
             })
         return vm

@@ -59,9 +59,9 @@ class IndexFragment : Fragment() {
     }
 
     class Navigation(private val navHostActivity: Activity) : IndexItemViewHolder.Navigation {
-        override fun transDetail(id: Int) {
+        override fun transDetail(number: Int) {
             val directions = IndexFragmentDirections
-                .actionIndexFragmentToDetailFragment()
+                .actionIndexFragmentToDetailFragment(number)
             navHostActivity.findNavController(R.id.container).navigate(directions)
         }
     }

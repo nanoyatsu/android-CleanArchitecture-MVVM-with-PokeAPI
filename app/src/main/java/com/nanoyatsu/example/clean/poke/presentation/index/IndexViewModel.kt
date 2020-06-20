@@ -12,19 +12,20 @@ class IndexViewModel(val getPokeList: GetPokeList) : ViewModel() {
     private val _list = MutableLiveData<List<PokeNameImage>>()
     val list: LiveData<List<PokeNameImage>> = _list
 
-    init {
-        Timber.d("IndexViewModel init")
-        getPokeList(Pagination(0, 30), this::getListOnResult)
-    }
-
-    private fun getListOnResult(result: Result<List<PokeNameImage>>) {
+    private val getListOnResult: (Result<List<PokeNameImage>>) -> Unit = { result ->
         result
             .onSuccess {
                 Timber.d("onSuccess")
-                _list.postValue(it)
+                _list.value = it
             }
             .onFailure {
                 Timber.d("onFailure")
             }
     }
+
+    init {
+        Timber.d("IndexViewModel init")
+        getPokeList(Pagination(0, 30), getListOnResult)
+    }
+
 }

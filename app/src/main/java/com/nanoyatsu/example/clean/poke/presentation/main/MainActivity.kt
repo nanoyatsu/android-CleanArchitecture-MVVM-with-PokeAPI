@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
 
-    // todo poke_detail
     // todo room
     // todo cache
 }

@@ -26,6 +26,6 @@ class IndexItemViewHolder(
     }
 
     interface Navigation {
-        fun transDetail(id: Int)
+        fun transDetail(number: Int)
     }
 }

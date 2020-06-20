@@ -5,6 +5,7 @@ import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
 import com.nanoyatsu.example.clean.poke.domain.poke.GetPoke
 import com.nanoyatsu.example.clean.poke.domain.poke.GetPokeList
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
+import com.nanoyatsu.example.clean.poke.presentation.detail.DetailFragmentArgs
 import com.nanoyatsu.example.clean.poke.presentation.detail.DetailViewModel
 import com.nanoyatsu.example.clean.poke.presentation.index.IndexViewModel
 import me.sargunvohra.lib.pokekotlin.client.PokeApi
@@ -28,7 +29,7 @@ val appModule = module {
 
     // viewModel
     viewModel { IndexViewModel(get()) }
-    viewModel { DetailViewModel() }
+    viewModel { (args: DetailFragmentArgs) -> DetailViewModel(args, get()) }
 
     // UI
 //    // スコープ理解不足

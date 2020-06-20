@@ -1,18 +1,12 @@
 package com.nanoyatsu.example.clean.poke.core.di
 
-import android.app.Activity
-import android.view.ViewGroup
 import com.nanoyatsu.example.clean.poke.data.repository.PokeRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
+import com.nanoyatsu.example.clean.poke.domain.poke.GetPoke
 import com.nanoyatsu.example.clean.poke.domain.poke.GetPokeList
-import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
 import com.nanoyatsu.example.clean.poke.presentation.detail.DetailViewModel
-import com.nanoyatsu.example.clean.poke.presentation.index.IndexAdapter
-import com.nanoyatsu.example.clean.poke.presentation.index.IndexFragment
-import com.nanoyatsu.example.clean.poke.presentation.index.IndexItemViewHolder
 import com.nanoyatsu.example.clean.poke.presentation.index.IndexViewModel
-import com.nanoyatsu.example.clean.poke.presentation.main.MainActivity
 import me.sargunvohra.lib.pokekotlin.client.PokeApi
 import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
 import org.koin.android.viewmodel.dsl.viewModel
@@ -30,6 +24,7 @@ val appModule = module {
 
     // useCase
     single { GetPokeList(get()) }
+    single { GetPoke(get()) }
 
     // viewModel
     viewModel { IndexViewModel(get()) }

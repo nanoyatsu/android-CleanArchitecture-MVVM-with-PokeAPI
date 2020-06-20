@@ -1,4 +1,4 @@
-package com.nanoyatsu.example.clean.poke.presentation
+package com.nanoyatsu.example.clean.poke.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,4 +18,9 @@ class MainActivity : AppCompatActivity() {
 //                .commitNow()
 //        }
     }
+
+    // todo navigation
+    // todo poke_detail
+    // todo room
+    // todo cache
 }

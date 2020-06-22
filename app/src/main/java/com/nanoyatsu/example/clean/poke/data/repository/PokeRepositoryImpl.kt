@@ -1,9 +1,9 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
 import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
+import com.nanoyatsu.example.clean.poke.domain.poke.PokeDetail
+import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
-import me.sargunvohra.lib.pokekotlin.model.NamedApiResourceList
-import me.sargunvohra.lib.pokekotlin.model.Pokemon
 
 class PokeRepositoryImpl(private val dataSource: PokeDataSource) : PokeRepository {
     // todo Room cache
@@ -11,7 +11,7 @@ class PokeRepositoryImpl(private val dataSource: PokeDataSource) : PokeRepositor
         return dataSource.get(id)
     }
 
-    override fun list(offset: Int, limit: Int): NamedApiResourceList {
-        return dataSource.list(offset, limit)
+    override fun list(offset: Int, limit: Int): List<PokeNameImage> {
+        return dataSource.list(offset, limit).results.map { PokeNameImage.from(it) }
     }
 }

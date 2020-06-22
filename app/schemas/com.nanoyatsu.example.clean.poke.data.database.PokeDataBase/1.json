@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3f7a9aca5aa3e426a00eca78735cbc50",
+    "identityHash": "f26f823cc993bb22259da56aef791c30",
     "entities": [
       {
         "tableName": "poke_index_cache",
@@ -58,7 +58,7 @@
       },
       {
         "tableName": "poke_type_cache",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`poke_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, PRIMARY KEY(`poke_id`, `slot`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`poke_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, PRIMARY KEY(`poke_id`, `type_id`), FOREIGN KEY(`poke_id`) REFERENCES `poke_cache`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`type_id`) REFERENCES `type_index_cache`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pokeId",
@@ -82,12 +82,45 @@
         "primaryKey": {
           "columnNames": [
             "poke_id",
-            "slot"
+            "type_id"
           ],
           "autoGenerate": false
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_poke_type_cache_poke_id_slot",
+            "unique": true,
+            "columnNames": [
+              "poke_id",
+              "slot"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_poke_type_cache_poke_id_slot` ON `${TABLE_NAME}` (`poke_id`, `slot`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "poke_cache",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "poke_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "type_index_cache",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "type_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "ability_index_cache",
@@ -117,7 +150,7 @@
       },
       {
         "tableName": "poke_ability_cache",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`poke_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, `ability_id` INTEGER NOT NULL, `is_hidden` INTEGER NOT NULL, PRIMARY KEY(`poke_id`, `slot`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`poke_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, `ability_id` INTEGER NOT NULL, `is_hidden` INTEGER NOT NULL, PRIMARY KEY(`poke_id`, `ability_id`), FOREIGN KEY(`poke_id`) REFERENCES `poke_cache`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`ability_id`) REFERENCES `ability_index_cache`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "pokeId",
@@ -147,12 +180,45 @@
         "primaryKey": {
           "columnNames": [
             "poke_id",
-            "slot"
+            "ability_id"
           ],
           "autoGenerate": false
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_poke_ability_cache_poke_id_slot",
+            "unique": true,
+            "columnNames": [
+              "poke_id",
+              "slot"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_poke_ability_cache_poke_id_slot` ON `${TABLE_NAME}` (`poke_id`, `slot`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "poke_cache",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "poke_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "ability_index_cache",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "ability_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "poke_cache",
@@ -280,7 +346,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3f7a9aca5aa3e426a00eca78735cbc50')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f26f823cc993bb22259da56aef791c30')"
     ]
   }
 }

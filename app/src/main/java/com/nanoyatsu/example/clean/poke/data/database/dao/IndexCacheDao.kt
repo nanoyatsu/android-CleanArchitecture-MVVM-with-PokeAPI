@@ -9,8 +9,8 @@ import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
 @Dao
 interface IndexCacheDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(row: PokeIndexCache)
+    fun insert(row: PokeIndexCache)
 
     @Query("DELETE FROM poke_index_cache")
-    suspend fun deleteAll()
+    fun deleteAll()
 }

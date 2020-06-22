@@ -5,21 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.nanoyatsu.example.clean.poke.domain.poke.GetPoke
-import me.sargunvohra.lib.pokekotlin.model.Pokemon
+import com.nanoyatsu.example.clean.poke.domain.poke.PokeDetail
 import timber.log.Timber
 
 class DetailViewModel(args: DetailFragmentArgs, getPoke: GetPoke) : ViewModel() {
     private val number = args.number
 
-    private val _poke = MutableLiveData<Pokemon>()
-    val poke: LiveData<Pokemon> = _poke
+    private val _poke = MutableLiveData<PokeDetail>()
+    val poke: LiveData<PokeDetail> = _poke
 
-    val sprite = Transformations.map(poke) { it.sprites.frontDefault }
+    val sprite = Transformations.map(poke) { it.spriteFrontDefault }
     val name = Transformations.map(poke) { it.name }
     val height = Transformations.map(poke) { it.height.toString() }
     val weight = Transformations.map(poke) { it.weight.toString() }
 
-    private val getOnResult: (Result<Pokemon>) -> Unit = { result ->
+    private val getOnResult: (Result<PokeDetail>) -> Unit = { result ->
         result
             .onSuccess {
                 Timber.d("onSuccess")

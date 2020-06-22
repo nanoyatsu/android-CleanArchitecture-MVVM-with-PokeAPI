@@ -7,9 +7,10 @@ import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithType
 interface PokeDao {
     @Transaction
     @Query("Select * FROM poke_cache WHERE id == :id")
-    suspend fun getPoke(id: Int): PokeCacheWithTypeAndAbility?
+    fun getPoke(id: Int): List<PokeCacheWithTypeAndAbility>
 
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(row: PokeCacheWithTypeAndAbility)
+    // fixme それぞれにinsert
+//    @Transaction
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun insert(row: PokeCacheWithTypeAndAbility)
 }

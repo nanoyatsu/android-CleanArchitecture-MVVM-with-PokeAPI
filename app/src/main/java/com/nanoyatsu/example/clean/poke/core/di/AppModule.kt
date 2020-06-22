@@ -1,6 +1,5 @@
 package com.nanoyatsu.example.clean.poke.core.di
 
-import androidx.room.Room
 import com.nanoyatsu.example.clean.poke.data.database.PokeDataBase
 import com.nanoyatsu.example.clean.poke.data.repository.PokeRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
@@ -21,17 +20,11 @@ val appModule = module {
     single<PokeApi> { PokeApiClient() }
 
     // data
-    single {
-        Room.databaseBuilder(
-            androidApplication().applicationContext,
-            PokeDataBase::class.java,
-            "poke_database"
-        ).build()
-    }
+    single { PokeDataBase.getInstance(androidApplication().applicationContext) }
     single { PokeDataSource(get()) }
 
     // repository
-    single<PokeRepository> { PokeRepositoryImpl(get()) }
+    single<PokeRepository> { PokeRepositoryImpl(get(), get()) }
 
     // useCase
     single { GetPokeList(get()) }

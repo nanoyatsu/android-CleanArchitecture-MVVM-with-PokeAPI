@@ -10,8 +10,8 @@ data class TypeIndexCache(
     val name: String
 ) {
     companion object {
-        fun from(data: NamedApiResource) {
-            TypeIndexCache(data.id, data.name)
+        fun from(data: NamedApiResource): TypeIndexCache {
+            return TypeIndexCache(data.id, data.name)
         }
     }
 }

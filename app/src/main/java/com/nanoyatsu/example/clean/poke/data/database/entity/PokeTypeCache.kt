@@ -11,8 +11,8 @@ data class PokeTypeCache(
     @ColumnInfo(name = "type_id") val typeId: Int
 ) {
     companion object {
-        fun from(pokeId: Int, data: PokemonType) {
-            PokeTypeCache(pokeId, data.slot, data.type.id)
+        fun from(pokeId: Int, data: PokemonType): PokeTypeCache {
+            return PokeTypeCache(pokeId, data.slot, data.type.id)
         }
     }
 }

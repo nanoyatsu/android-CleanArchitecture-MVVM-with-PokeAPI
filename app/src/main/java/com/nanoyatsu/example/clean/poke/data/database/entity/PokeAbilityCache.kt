@@ -12,8 +12,8 @@ data class PokeAbilityCache(
     @ColumnInfo(name = "is_hidden") val isHidden: Boolean
 ) {
     companion object {
-        fun from(pokeId: Int, data: PokemonAbility) {
-            PokeAbilityCache(pokeId, data.slot, data.ability.id, data.isHidden)
+        fun from(pokeId: Int, data: PokemonAbility): PokeAbilityCache {
+            return PokeAbilityCache(pokeId, data.slot, data.ability.id, data.isHidden)
         }
     }
 }

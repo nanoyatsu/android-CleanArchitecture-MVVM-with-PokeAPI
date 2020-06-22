@@ -1,0 +1,286 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3f7a9aca5aa3e426a00eca78735cbc50",
+    "entities": [
+      {
+        "tableName": "poke_index_cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`number` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`number`))",
+        "fields": [
+          {
+            "fieldPath": "number",
+            "columnName": "number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "number"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "type_index_cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "poke_type_cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`poke_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, PRIMARY KEY(`poke_id`, `slot`))",
+        "fields": [
+          {
+            "fieldPath": "pokeId",
+            "columnName": "poke_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "slot",
+            "columnName": "slot",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "typeId",
+            "columnName": "type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "poke_id",
+            "slot"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ability_index_cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "poke_ability_cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`poke_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, `ability_id` INTEGER NOT NULL, `is_hidden` INTEGER NOT NULL, PRIMARY KEY(`poke_id`, `slot`))",
+        "fields": [
+          {
+            "fieldPath": "pokeId",
+            "columnName": "poke_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "slot",
+            "columnName": "slot",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "abilityId",
+            "columnName": "ability_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isHidden",
+            "columnName": "is_hidden",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "poke_id",
+            "slot"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "poke_cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `height` INTEGER NOT NULL, `weight` INTEGER NOT NULL, `stat_h` INTEGER NOT NULL, `stat_a` INTEGER NOT NULL, `stat_b` INTEGER NOT NULL, `stat_c` INTEGER NOT NULL, `stat_d` INTEGER NOT NULL, `stat_s` INTEGER NOT NULL, `sprite_back_default` TEXT, `sprite_back_shiny` TEXT, `sprite_front_default` TEXT, `sprite_front_shiny` TEXT, `sprite_back_female` TEXT, `sprite_back_shiny_female` TEXT, `sprite_front_female` TEXT, `sprite_front_shiny_female` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weight",
+            "columnName": "weight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statH",
+            "columnName": "stat_h",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statA",
+            "columnName": "stat_a",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statB",
+            "columnName": "stat_b",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statC",
+            "columnName": "stat_c",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statD",
+            "columnName": "stat_d",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statS",
+            "columnName": "stat_s",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spriteBackDefault",
+            "columnName": "sprite_back_default",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spriteBackShiny",
+            "columnName": "sprite_back_shiny",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spriteFrontDefault",
+            "columnName": "sprite_front_default",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spriteFrontShiny",
+            "columnName": "sprite_front_shiny",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spriteBackFemale",
+            "columnName": "sprite_back_female",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spriteBackShinyFemale",
+            "columnName": "sprite_back_shiny_female",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spriteFrontFemale",
+            "columnName": "sprite_front_female",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spriteFrontShinyFemale",
+            "columnName": "sprite_front_shiny_female",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3f7a9aca5aa3e426a00eca78735cbc50')"
+    ]
+  }
+}

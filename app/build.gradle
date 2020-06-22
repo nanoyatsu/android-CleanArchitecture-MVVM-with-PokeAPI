@@ -16,6 +16,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -58,7 +63,7 @@ dependencies {
     // room (SQLite wrapper by androidx)
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // JDK8だとkaptに不具合が動かないみたいなので annotationProcessorで暫定回避（組み込みJDKだと通るらしい）（okhttpのために1.8を指定している）
     implementation "androidx.room:room-ktx:$room_version"
 //    // Material Components
 //    implementation "com.google.android.material:material:1.2.0-beta01"

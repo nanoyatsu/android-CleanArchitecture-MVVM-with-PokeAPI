@@ -1,21 +1,41 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
-import com.nanoyatsu.example.clean.poke.core.extension.pipe
 import com.nanoyatsu.example.clean.poke.data.database.PokeDataBase
+import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
 import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeDetail
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
 
-class PokeRepositoryImpl(private val dataSource: PokeDataSource, private val db: PokeDataBase) :
+class PokeRepositoryImpl(private val dataSource: PokeDataSource, db: PokeDataBase) :
     PokeRepository {
-    // todo Room cache
+    private val listDao = db.indexCacheDao()
+    private val detailDao = db.pokeDao()
+
     override fun get(id: Int): PokeDetail {
-        return dataSource.get(id)
-            .pipe(PokeCacheWithTypeAndAbility.Companion::from)
-            .pipe(PokeDetail.Companion::from)
-        // db.pokeDao().getPoke(id)
+        val dbModel = detailDao.getPoke(id)
+            ?: fromNetworkWithCaching(id, detailDao)
+        return PokeDetail.from(dbModel)
+    }
+
+    private fun fromNetworkWithCaching(id: Int, dao: PokeDao): PokeCacheWithTypeAndAbility {
+        val convertedApiResult = dataSource.get(id)
+            .let(PokeCacheWithTypeAndAbility.Companion::from)
+        insertPokeCacheWithTypeAndAbility(convertedApiResult, dao)
+        return convertedApiResult
+    }
+
+    private fun insertPokeCacheWithTypeAndAbility(row: PokeCacheWithTypeAndAbility, dao: PokeDao) {
+        dao.insertPoke(row.poke)
+        row.types.forEach {
+            dao.insertTypeIndex(it.type)
+            dao.insertPokeType(it.pokeType)
+        }
+        row.abilities.forEach {
+            dao.insertAbilityIndex(it.ability)
+            dao.insertPokeAbility(it.pokeAbility)
+        }
     }
 
     override fun list(offset: Int, limit: Int): List<PokeNameImage> {

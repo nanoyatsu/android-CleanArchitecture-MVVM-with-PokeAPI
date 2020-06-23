@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nanoyatsu.example.clean.poke.data.database.dao.IndexCacheDao
 import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
 import com.nanoyatsu.example.clean.poke.data.database.entity.*
 
@@ -21,7 +20,6 @@ import com.nanoyatsu.example.clean.poke.data.database.entity.*
     exportSchema = true
 )
 abstract class PokeDataBase : RoomDatabase() {
-    abstract fun indexCacheDao(): IndexCacheDao
     abstract fun pokeDao(): PokeDao
 
     companion object {

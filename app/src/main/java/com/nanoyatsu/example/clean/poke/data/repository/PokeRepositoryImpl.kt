@@ -10,7 +10,6 @@ import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
 
 class PokeRepositoryImpl(private val dataSource: PokeDataSource, db: PokeDataBase) :
     PokeRepository {
-    private val listDao = db.indexCacheDao()
     private val detailDao = db.pokeDao()
 
     override fun get(id: Int): PokeDetail {
@@ -28,14 +27,10 @@ class PokeRepositoryImpl(private val dataSource: PokeDataSource, db: PokeDataBas
 
     private fun insertPokeCacheWithTypeAndAbility(row: PokeCacheWithTypeAndAbility, dao: PokeDao) {
         dao.insertPoke(row.poke)
-        row.types.forEach {
-            dao.insertTypeIndex(it.type)
-            dao.insertPokeType(it.pokeType)
-        }
-        row.abilities.forEach {
-            dao.insertAbilityIndex(it.ability)
-            dao.insertPokeAbility(it.pokeAbility)
-        }
+        row.types.map { it.type }.let(dao::insertAllTypeIndex)
+        row.types.map { it.pokeType }.let(dao::insertAllPokeType)
+        row.abilities.map { it.ability }.let(dao::insertAllAbilityIndex)
+        row.abilities.map { it.pokeAbility }.let(dao::insertAllPokeAbility)
     }
 
     override fun list(offset: Int, limit: Int): List<PokeNameImage> {

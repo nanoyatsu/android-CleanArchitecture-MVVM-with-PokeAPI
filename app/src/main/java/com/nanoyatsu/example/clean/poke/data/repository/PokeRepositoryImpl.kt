@@ -1,6 +1,5 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
-import com.nanoyatsu.example.clean.poke.data.database.PokeDataBase
 import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
 import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
@@ -8,13 +7,11 @@ import com.nanoyatsu.example.clean.poke.domain.poke.PokeDetail
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
 
-class PokeRepositoryImpl(private val dataSource: PokeDataSource, db: PokeDataBase) :
+class PokeRepositoryImpl(private val dataSource: PokeDataSource, private val dao: PokeDao) :
     PokeRepository {
-    private val detailDao = db.pokeDao()
-
     override fun get(id: Int): PokeDetail {
-        val dbModel = detailDao.getPoke(id)
-            ?: fromNetworkWithCaching(id, detailDao)
+        val dbModel = dao.getPoke(id)
+            ?: fromNetworkWithCaching(id, dao)
         return PokeDetail.from(dbModel)
     }
 

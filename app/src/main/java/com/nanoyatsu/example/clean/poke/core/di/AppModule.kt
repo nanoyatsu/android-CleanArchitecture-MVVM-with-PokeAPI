@@ -1,6 +1,10 @@
 package com.nanoyatsu.example.clean.poke.core.di
 
+import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
+import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
+import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
 import com.nanoyatsu.example.clean.poke.data.database.PokeDataBase
+import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexBoundaryCallback
 import com.nanoyatsu.example.clean.poke.data.repository.PokeRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.poke.GetPoke
@@ -18,6 +22,8 @@ import org.koin.dsl.module
 val appModule = module {
     // common
     single<PokeApi> { PokeApiClient() }
+    factory { LiveNetworkState(NetworkState.Success) }
+    factory { LiveRefreshingState(false) }
 
     // data
     single { PokeDataBase.getInstance(androidApplication().applicationContext) }
@@ -26,6 +32,7 @@ val appModule = module {
 
     // repository
     single<PokeRepository> { PokeRepositoryImpl(get(), get()) }
+    single { PokeIndexBoundaryCallback(get(), get(), get(), get()) }
 
     // useCase
     single { GetPokeList(get()) }

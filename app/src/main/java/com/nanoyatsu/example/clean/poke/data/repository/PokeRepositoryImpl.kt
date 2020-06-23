@@ -21,7 +21,7 @@ class PokeRepositoryImpl(
     private fun fromNetworkWithCaching(
         id: Int, api: PokeNetworkResource, dao: PokeDao
     ): PokeCacheWithTypeAndAbility {
-        val convertedApiResult = networkResource.get(id)
+        val convertedApiResult = api.get(id)
             .let(PokeCacheWithTypeAndAbility.Companion::from)
         insertPokeCacheWithTypeAndAbility(convertedApiResult, dao)
         return convertedApiResult

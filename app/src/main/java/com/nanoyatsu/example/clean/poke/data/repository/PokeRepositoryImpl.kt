@@ -2,21 +2,26 @@ package com.nanoyatsu.example.clean.poke.data.repository
 
 import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
-import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
+import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeDetail
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
 
-class PokeRepositoryImpl(private val dataSource: PokeDataSource, private val dao: PokeDao) :
+class PokeRepositoryImpl(
+    private val networkResource: PokeNetworkResource,
+    private val dao: PokeDao
+) :
     PokeRepository {
     override fun get(id: Int): PokeDetail {
         val dbModel = dao.getPoke(id)
-            ?: fromNetworkWithCaching(id, dao)
+            ?: fromNetworkWithCaching(id, networkResource, dao)
         return PokeDetail.from(dbModel)
     }
 
-    private fun fromNetworkWithCaching(id: Int, dao: PokeDao): PokeCacheWithTypeAndAbility {
-        val convertedApiResult = dataSource.get(id)
+    private fun fromNetworkWithCaching(
+        id: Int, api: PokeNetworkResource, dao: PokeDao
+    ): PokeCacheWithTypeAndAbility {
+        val convertedApiResult = networkResource.get(id)
             .let(PokeCacheWithTypeAndAbility.Companion::from)
         insertPokeCacheWithTypeAndAbility(convertedApiResult, dao)
         return convertedApiResult
@@ -31,6 +36,6 @@ class PokeRepositoryImpl(private val dataSource: PokeDataSource, private val dao
     }
 
     override fun list(offset: Int, limit: Int): List<PokeNameImage> {
-        return dataSource.list(offset, limit).results.map { PokeNameImage.from(it) }
+        return networkResource.list(offset, limit).results.map { PokeNameImage.from(it) }
     }
 }

@@ -2,7 +2,7 @@ package com.nanoyatsu.example.clean.poke.core.di
 
 import com.nanoyatsu.example.clean.poke.data.database.PokeDataBase
 import com.nanoyatsu.example.clean.poke.data.repository.PokeRepositoryImpl
-import com.nanoyatsu.example.clean.poke.data.resource.PokeDataSource
+import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.poke.GetPoke
 import com.nanoyatsu.example.clean.poke.domain.poke.GetPokeList
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
@@ -22,7 +22,7 @@ val appModule = module {
     // data
     single { PokeDataBase.getInstance(androidApplication().applicationContext) }
     single { get<PokeDataBase>().pokeDao() }
-    single { PokeDataSource(get()) }
+    single { PokeNetworkResource(get()) }
 
     // repository
     single<PokeRepository> { PokeRepositoryImpl(get(), get()) }

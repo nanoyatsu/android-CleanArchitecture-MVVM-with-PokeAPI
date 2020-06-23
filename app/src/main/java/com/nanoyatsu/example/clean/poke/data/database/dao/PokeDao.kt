@@ -1,5 +1,6 @@
 package com.nanoyatsu.example.clean.poke.data.database.dao
 
+import androidx.paging.DataSource
 import androidx.room.*
 import com.nanoyatsu.example.clean.poke.data.database.entity.*
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
@@ -26,6 +27,9 @@ interface PokeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllPokeAbility(rows: List<PokeAbilityCache>)
+
+    @Query("SELECT * FROM poke_index_cache ORDER BY number")
+    fun getPokeIndex(): DataSource.Factory<Int, PokeIndexCache>
 
     @Transaction
     @Query("SELECT * FROM poke_cache WHERE id == :id")

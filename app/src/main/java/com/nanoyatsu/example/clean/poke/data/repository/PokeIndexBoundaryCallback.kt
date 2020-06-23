@@ -8,6 +8,9 @@ import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
 import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import me.sargunvohra.lib.pokekotlin.model.NamedApiResourceList
 
 class PokeIndexBoundaryCallback(
@@ -22,8 +25,8 @@ class PokeIndexBoundaryCallback(
 
     private var retry: (() -> Unit)? = null
 
-    private fun tryLoad(
-        getter: () -> NamedApiResourceList,
+    private suspend fun tryLoad(
+        getter: suspend () -> NamedApiResourceList,
         retry: () -> Unit
     ) {
         try {
@@ -31,6 +34,7 @@ class PokeIndexBoundaryCallback(
             val dbModel = response.results.map { PokeIndexCache.from(it) }
             dao.insertAllPokeIndex(dbModel)
         } catch (e: Exception) {
+            e.printStackTrace()
             this.retry = retry
             networkState.postValue(NetworkState.Failed(e.message ?: "unknown error"))
         }
@@ -38,14 +42,19 @@ class PokeIndexBoundaryCallback(
 
     override fun onZeroItemsLoaded() {
         isRefreshing.postValue(true)
-        val getter = { networkResource.list(0, PAGE_SIZE) }
-        tryLoad(getter) { onZeroItemsLoaded() }
-        isRefreshing.postValue(false)
+        CoroutineScope(Dispatchers.IO).launch {
+            val getter = suspend { networkResource.list(0, PAGE_SIZE) }
+            tryLoad(getter) { onZeroItemsLoaded() }
+            isRefreshing.postValue(false)
+
+        }
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: PokeNameImage) {
-        val getter = { networkResource.list(itemAtEnd.number, PAGE_SIZE) }
-        tryLoad(getter) { onItemAtEndLoaded(itemAtEnd) }
+        CoroutineScope(Dispatchers.IO).launch {
+            val getter = suspend { networkResource.list(itemAtEnd.number, PAGE_SIZE) }
+            tryLoad(getter) { onItemAtEndLoaded(itemAtEnd) }
+        }
     }
 
     override fun onItemAtFrontLoaded(itemAtFront: PokeNameImage) {

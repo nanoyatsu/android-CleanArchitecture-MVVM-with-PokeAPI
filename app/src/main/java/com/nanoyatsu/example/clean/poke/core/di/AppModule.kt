@@ -31,8 +31,8 @@ val appModule = module {
     single { PokeNetworkResource(get()) }
 
     // repository
-    single<PokeRepository> { PokeRepositoryImpl(get(), get()) }
     single { PokeIndexBoundaryCallback(get(), get(), get(), get()) }
+    single<PokeRepository> { PokeRepositoryImpl(get(), get(), get()) }
 
     // useCase
     single { GetPokeList(get()) }

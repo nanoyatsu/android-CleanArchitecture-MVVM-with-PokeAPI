@@ -1,24 +1,21 @@
 package com.nanoyatsu.example.clean.poke.presentation.index
 
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
 
 // memo : エラー表示で拡張するのでRecyclerView.ViewHolderのまま
 class IndexAdapter(
-    private val items: List<PokeNameImage>,
     private val navigation: IndexItemViewHolder.Navigation
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    //class IndexAdapter : PagedListAdapter<PokeNameImage, RecyclerView.ViewHolder>(DiffCallback()) {
+) : PagedListAdapter<PokeNameImage, RecyclerView.ViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return IndexItemViewHolder.from(parent, navigation)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val data = items[position]
-//        val data = getItem(position)
+        val data = getItem(position)
         (holder as IndexItemViewHolder).bind(data!!)
     }
 
@@ -30,9 +27,5 @@ class IndexAdapter(
             override fun areContentsTheSame(old: PokeNameImage, new: PokeNameImage): Boolean =
                 old == new
         }
-    }
-
-    override fun getItemCount(): Int {
-        return items.size
     }
 }

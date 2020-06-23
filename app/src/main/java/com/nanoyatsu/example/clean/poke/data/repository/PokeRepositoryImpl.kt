@@ -1,5 +1,9 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
+import androidx.paging.LivePagedListBuilder
+import com.nanoyatsu.example.clean.poke.core.dataclass.Listing
+import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
+import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
 import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
@@ -9,9 +13,9 @@ import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
 
 class PokeRepositoryImpl(
     private val networkResource: PokeNetworkResource,
-    private val dao: PokeDao
-) :
-    PokeRepository {
+    private val dao: PokeDao,
+    private val boundaryCallback: PokeIndexBoundaryCallback
+) : PokeRepository {
     override fun get(id: Int): PokeDetail {
         val dbModel = dao.getPoke(id)
             ?: fromNetworkWithCaching(id, networkResource, dao)
@@ -35,7 +39,23 @@ class PokeRepositoryImpl(
         row.abilities.map { it.pokeAbility }.let(dao::insertAllPokeAbility)
     }
 
-    override fun list(offset: Int, limit: Int): List<PokeNameImage> {
-        return networkResource.list(offset, limit).results.map { PokeNameImage.from(it) }
+    override fun list(): Listing<PokeNameImage> {
+        val dataSourceFactory = dao.getPokeIndex().map { PokeNameImage.from(it) }
+        val livePagedList =
+            LivePagedListBuilder(dataSourceFactory, PokeIndexBoundaryCallback.PAGE_SIZE)
+                .setBoundaryCallback(boundaryCallback)
+                .build()
+
+        return Listing(
+            pagedList = livePagedList,
+            networkState = boundaryCallback.networkState,
+            isRefreshing = boundaryCallback.isRefreshing,
+            refresh = { refresh(boundaryCallback.networkState, boundaryCallback.isRefreshing) },
+            retry = { boundaryCallback.retryAllFailed() }
+        )
+    }
+
+    private fun refresh(networkState: LiveNetworkState, isRefreshing: LiveRefreshingState) {
+//        isRefreshing.postValue(true)
     }
 }

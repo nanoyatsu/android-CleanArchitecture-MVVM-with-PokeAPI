@@ -1,11 +1,11 @@
-package com.nanoyatsu.example.clean.poke.data.database.dao
+package com.nanoyatsu.example.clean.poke.data.resource.database.dao
 
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
+import com.nanoyatsu.example.clean.poke.data.resource.database.entity.PokeIndexCache
 
 @Dao
 interface PokeIndexDao {

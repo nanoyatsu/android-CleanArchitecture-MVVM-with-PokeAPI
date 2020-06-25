@@ -1,7 +1,7 @@
 package com.nanoyatsu.example.clean.poke.domain.pokeIndex
 
 import com.nanoyatsu.example.clean.poke.core.extension.proper
-import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
+import com.nanoyatsu.example.clean.poke.data.resource.database.entity.PokeIndexCache
 import me.sargunvohra.lib.pokekotlin.model.NamedApiResource
 
 data class PokeNameImage(

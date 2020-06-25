@@ -1,8 +1,8 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
-import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDetailDao
-import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
-import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
+import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeDetailDao
+import com.nanoyatsu.example.clean.poke.data.resource.database.relation.PokeCacheWithTypeAndAbility
+import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
 

@@ -5,9 +5,9 @@ import com.nanoyatsu.example.clean.poke.core.dataclass.Listing
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
-import com.nanoyatsu.example.clean.poke.data.database.dao.PokeIndexDao
-import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
-import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
+import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeIndexDao
+import com.nanoyatsu.example.clean.poke.data.resource.database.entity.PokeIndexCache
+import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeIndexRepository
 import kotlinx.coroutines.CoroutineScope

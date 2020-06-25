@@ -1,4 +1,4 @@
-package com.nanoyatsu.example.clean.poke.data.database.entity
+package com.nanoyatsu.example.clean.poke.data.resource.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

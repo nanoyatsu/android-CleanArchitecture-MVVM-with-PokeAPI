@@ -3,11 +3,11 @@ package com.nanoyatsu.example.clean.poke.core.di
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
-import com.nanoyatsu.example.clean.poke.data.database.PokeDataBase
 import com.nanoyatsu.example.clean.poke.data.repository.PokeDetailRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexBoundaryCallback
 import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexRepositoryImpl
-import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
+import com.nanoyatsu.example.clean.poke.data.resource.database.PokeDataBase
+import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.RefreshPokeDetail

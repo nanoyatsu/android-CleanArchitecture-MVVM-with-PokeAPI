@@ -1,12 +1,12 @@
-package com.nanoyatsu.example.clean.poke.data.database
+package com.nanoyatsu.example.clean.poke.data.resource.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDetailDao
-import com.nanoyatsu.example.clean.poke.data.database.dao.PokeIndexDao
-import com.nanoyatsu.example.clean.poke.data.database.entity.*
+import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeDetailDao
+import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeIndexDao
+import com.nanoyatsu.example.clean.poke.data.resource.database.entity.*
 
 @Database(
     entities = [

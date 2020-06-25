@@ -1,8 +1,8 @@
 package com.nanoyatsu.example.clean.poke.domain.pokeDetail
 
-import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheAbilityWithName
-import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheTypeWithName
-import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
+import com.nanoyatsu.example.clean.poke.data.resource.database.relation.PokeCacheAbilityWithName
+import com.nanoyatsu.example.clean.poke.data.resource.database.relation.PokeCacheTypeWithName
+import com.nanoyatsu.example.clean.poke.data.resource.database.relation.PokeCacheWithTypeAndAbility
 
 data class PokeDetail(
     val number: Int, // ずかん番号

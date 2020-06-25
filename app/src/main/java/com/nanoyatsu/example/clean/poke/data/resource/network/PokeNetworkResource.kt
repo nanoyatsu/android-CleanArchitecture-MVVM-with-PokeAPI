@@ -1,4 +1,4 @@
-package com.nanoyatsu.example.clean.poke.data.resource
+package com.nanoyatsu.example.clean.poke.data.resource.network
 
 import me.sargunvohra.lib.pokekotlin.client.PokeApi
 

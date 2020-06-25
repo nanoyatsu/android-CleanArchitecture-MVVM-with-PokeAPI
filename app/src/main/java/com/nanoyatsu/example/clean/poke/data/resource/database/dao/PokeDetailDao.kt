@@ -1,8 +1,8 @@
-package com.nanoyatsu.example.clean.poke.data.database.dao
+package com.nanoyatsu.example.clean.poke.data.resource.database.dao
 
 import androidx.room.*
-import com.nanoyatsu.example.clean.poke.data.database.entity.*
-import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
+import com.nanoyatsu.example.clean.poke.data.resource.database.entity.*
+import com.nanoyatsu.example.clean.poke.data.resource.database.relation.PokeCacheWithTypeAndAbility
 
 @Dao
 interface PokeDetailDao {

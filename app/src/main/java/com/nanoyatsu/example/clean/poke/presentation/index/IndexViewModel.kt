@@ -24,8 +24,8 @@ class IndexViewModel(getPokeList: GetPokeList) : ViewModel() {
     private var refresh: (() -> Unit)? = null
     private var retry: (() -> Unit)? = null
 
-    fun refresh() = refresh?.invoke()
-    fun retry() = retry?.invoke()
+    fun doRefresh() = refresh?.invoke()
+    fun doRetry() = retry?.invoke()
 
     private val getListOnResult: (Result<Listing<PokeNameImage>>) -> Unit = { result ->
         result

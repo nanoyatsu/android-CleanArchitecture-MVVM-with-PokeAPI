@@ -4,13 +4,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("imageUrl")
 fun bindImage(view: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        val imgUri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(view.context)
             .load(imgUri)
             .apply(
@@ -26,6 +27,16 @@ fun bindImage(view: ImageView, imgUrl: String?) {
 @BindingAdapter("numberInt")
 fun bindNumber(view: TextView, number: Int?) {
     number?.let {
-        view.text = String.format("No.%03d", number)
+        view.text = String.format("No.%03d", it)
     }
+}
+
+@BindingAdapter("onRefreshListener")
+fun bindRefreshListener(view: SwipeRefreshLayout, listener: (() -> Unit)?) {
+    listener?.let { view.setOnRefreshListener { it() } }
+}
+
+@BindingAdapter("refreshingState")
+fun bindRefreshingState(view: SwipeRefreshLayout, state: Boolean?) {
+    state?.let { view.isRefreshing = it }
 }

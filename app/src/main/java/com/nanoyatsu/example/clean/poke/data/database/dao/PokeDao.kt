@@ -5,36 +5,43 @@ import androidx.room.*
 import com.nanoyatsu.example.clean.poke.data.database.entity.*
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
 
+/**
+ * Index用とDetail用あたりでDAO定義分けたほうが誠実
+ */
 @Dao
 interface PokeDao {
+    // index
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllPokeIndex(row: List<PokeIndexCache>)
+    suspend fun insertAllPokeIndex(row: List<PokeIndexCache>)
 
     @Query("DELETE FROM poke_index_cache")
-    fun deleteAllPokeIndex()
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPoke(row: PokeCache)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllTypeIndex(rows: List<TypeIndexCache>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllPokeType(rows: List<PokeTypeCache>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllAbilityIndex(rows: List<AbilityIndexCache>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllPokeAbility(rows: List<PokeAbilityCache>)
+    suspend fun deleteAllPokeIndex()
 
     @Query("SELECT * FROM poke_index_cache ORDER BY number")
     fun getPokeIndex(): DataSource.Factory<Int, PokeIndexCache>
 
+    // detail
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPoke(row: PokeCache)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllTypeIndex(rows: List<TypeIndexCache>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllPokeType(rows: List<PokeTypeCache>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllAbilityIndex(rows: List<AbilityIndexCache>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllPokeAbility(rows: List<PokeAbilityCache>)
+
     @Transaction
     @Query("SELECT * FROM poke_cache WHERE id == :id")
-    fun getPoke(id: Int): PokeCacheWithTypeAndAbility?
+    suspend fun getPoke(id: Int): PokeCacheWithTypeAndAbility?
 
     @Query("DELETE FROM poke_cache WHERE id == :id")
-    fun deletePoke(id: Int)
+    suspend fun deletePoke(id: Int)
 }

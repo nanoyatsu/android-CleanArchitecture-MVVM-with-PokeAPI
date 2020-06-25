@@ -13,6 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.sargunvohra.lib.pokekotlin.model.NamedApiResourceList
 
+/**
+ * Paging Libraryを使いたい関係で、UseCase部の裏口を通っている感が強い（再考の余地がありそう）
+ */
 class PokeIndexBoundaryCallback(
     private val dao: PokeDao,
     private val networkResource: PokeNetworkResource,

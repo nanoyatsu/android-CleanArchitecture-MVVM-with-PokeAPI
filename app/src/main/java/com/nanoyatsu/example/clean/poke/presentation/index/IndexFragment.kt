@@ -40,13 +40,12 @@ class IndexFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // イベント設定
+        // 今回はbindingAdapterで解決した(swipeRefresh)ので特に無いが、描画→データ(vm)→イベントの順がよいと思う
     }
 
     private fun setupVm(vm: IndexViewModel): IndexViewModel {
         val adapter = binding.index.adapter as IndexAdapter
         vm.pokeList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
-        vm.isRefreshing
-            .observe(viewLifecycleOwner, Observer { binding.swipeRefresh.isRefreshing = it })
         return vm
     }
 

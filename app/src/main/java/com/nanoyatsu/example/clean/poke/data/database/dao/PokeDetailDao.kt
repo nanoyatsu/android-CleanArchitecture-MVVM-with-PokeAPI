@@ -1,28 +1,11 @@
 package com.nanoyatsu.example.clean.poke.data.database.dao
 
-import androidx.paging.DataSource
 import androidx.room.*
 import com.nanoyatsu.example.clean.poke.data.database.entity.*
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
 
-/**
- * Index用とDetail用あたりでDAO定義分けたほうが誠実
- */
 @Dao
-interface PokeDao {
-    // index
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllPokeIndex(row: List<PokeIndexCache>)
-
-    @Query("DELETE FROM poke_index_cache")
-    suspend fun deleteAllPokeIndex()
-
-    @Query("SELECT * FROM poke_index_cache ORDER BY number")
-    fun getPokeIndex(): DataSource.Factory<Int, PokeIndexCache>
-
-    // detail
-
+interface PokeDetailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPoke(row: PokeCache)
 

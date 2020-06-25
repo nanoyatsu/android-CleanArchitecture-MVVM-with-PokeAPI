@@ -29,7 +29,8 @@ val appModule = module {
 
     // data
     single { PokeDataBase.getInstance(androidApplication().applicationContext) }
-    single { get<PokeDataBase>().pokeDao() }
+    single { get<PokeDataBase>().pokeIndexDao() }
+    single { get<PokeDataBase>().pokeDetailDao() }
     single { PokeNetworkResource(get()) }
 
     // repository

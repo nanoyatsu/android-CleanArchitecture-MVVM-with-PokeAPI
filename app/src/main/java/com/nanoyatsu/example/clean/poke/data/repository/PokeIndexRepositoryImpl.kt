@@ -5,11 +5,9 @@ import com.nanoyatsu.example.clean.poke.core.dataclass.Listing
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
-import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
+import com.nanoyatsu.example.clean.poke.data.database.dao.PokeIndexDao
 import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
-import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
-import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeIndexRepository
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +17,7 @@ import timber.log.Timber
 
 class PokeIndexRepositoryImpl(
     private val networkResource: PokeNetworkResource,
-    private val dao: PokeDao,
+    private val dao: PokeIndexDao,
     private val boundaryCallback: PokeIndexBoundaryCallback
 ) : PokeIndexRepository {
     override suspend fun list(): Listing<PokeNameImage> {

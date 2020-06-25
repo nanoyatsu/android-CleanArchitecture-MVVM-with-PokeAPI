@@ -4,7 +4,7 @@ import androidx.paging.PagedList
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
-import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
+import com.nanoyatsu.example.clean.poke.data.database.dao.PokeIndexDao
 import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
@@ -17,7 +17,7 @@ import me.sargunvohra.lib.pokekotlin.model.NamedApiResourceList
  * Paging Libraryを使いたい関係で、UseCase部の裏口を通っている感が強い（再考の余地がありそう）
  */
 class PokeIndexBoundaryCallback(
-    private val dao: PokeDao,
+    private val dao: PokeIndexDao,
     private val networkResource: PokeNetworkResource,
     val networkState: LiveNetworkState,
     val isRefreshing: LiveRefreshingState

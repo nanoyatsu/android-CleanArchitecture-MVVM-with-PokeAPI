@@ -1,6 +1,6 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
-import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
+import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDetailDao
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheWithTypeAndAbility
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetail
@@ -8,7 +8,7 @@ import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
 
 class PokeDetailRepositoryImpl(
     private val networkResource: PokeNetworkResource,
-    private val dao: PokeDao
+    private val dao: PokeDetailDao
 ) : PokeDetailRepository {
     override suspend fun get(id: Int): PokeDetail {
         val dbModel = dao.getPoke(id)
@@ -17,7 +17,7 @@ class PokeDetailRepositoryImpl(
     }
 
     private suspend fun fromNetworkWithCaching(
-        id: Int, api: PokeNetworkResource, dao: PokeDao
+        id: Int, api: PokeNetworkResource, dao: PokeDetailDao
     ): PokeCacheWithTypeAndAbility {
         val convertedApiResult = api.get(id)
             .let(PokeCacheWithTypeAndAbility.Companion::from)
@@ -26,7 +26,7 @@ class PokeDetailRepositoryImpl(
     }
 
     private suspend fun insertPokeCacheWithTypeAndAbility(
-        row: PokeCacheWithTypeAndAbility, dao: PokeDao
+        row: PokeCacheWithTypeAndAbility, dao: PokeDetailDao
     ) {
         dao.insertPoke(row.poke)
         row.types.map { it.type }.let { dao.insertAllTypeIndex(it) }

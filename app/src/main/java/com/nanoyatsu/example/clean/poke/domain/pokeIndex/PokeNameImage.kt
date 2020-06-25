@@ -1,4 +1,4 @@
-package com.nanoyatsu.example.clean.poke.domain.poke
+package com.nanoyatsu.example.clean.poke.domain.pokeIndex
 
 import com.nanoyatsu.example.clean.poke.core.extension.proper
 import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
@@ -21,11 +21,17 @@ data class PokeNameImage(
 
     companion object {
         fun from(data: PokeIndexCache): PokeNameImage {
-            return PokeNameImage(data.name, data.number)
+            return PokeNameImage(
+                data.name,
+                data.number
+            )
         }
 
         fun from(resource: NamedApiResource): PokeNameImage {
-            return PokeNameImage(resource.name.proper(), resource.id)
+            return PokeNameImage(
+                resource.name.proper(),
+                resource.id
+            )
         }
     }
 }

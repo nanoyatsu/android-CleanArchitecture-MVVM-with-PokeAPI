@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.nanoyatsu.example.clean.poke.core.dataclass.Listing
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
-import com.nanoyatsu.example.clean.poke.domain.poke.GetPokeList
-import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
+import com.nanoyatsu.example.clean.poke.domain.pokeIndex.GetPokeList
+import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 import timber.log.Timber
 
 class IndexViewModel(getPokeList: GetPokeList) : ViewModel() {

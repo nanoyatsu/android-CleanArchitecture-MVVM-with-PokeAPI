@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nanoyatsu.example.clean.poke.databinding.ItemIndexBinding
-import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
+import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 
 class IndexItemViewHolder(
     private val binding: ItemIndexBinding,

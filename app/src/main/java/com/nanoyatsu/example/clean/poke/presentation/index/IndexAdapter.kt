@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
+import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 
 // memo : エラー表示で拡張するのでRecyclerView.ViewHolderのまま
 class IndexAdapter(

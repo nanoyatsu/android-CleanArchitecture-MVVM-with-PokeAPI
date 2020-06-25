@@ -4,12 +4,14 @@ import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
 import com.nanoyatsu.example.clean.poke.data.database.PokeDataBase
+import com.nanoyatsu.example.clean.poke.data.repository.PokeDetailRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexBoundaryCallback
-import com.nanoyatsu.example.clean.poke.data.repository.PokeRepositoryImpl
+import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
-import com.nanoyatsu.example.clean.poke.domain.poke.GetPoke
-import com.nanoyatsu.example.clean.poke.domain.poke.GetPokeList
-import com.nanoyatsu.example.clean.poke.domain.poke.PokeRepository
+import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPoke
+import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
+import com.nanoyatsu.example.clean.poke.domain.pokeIndex.GetPokeList
+import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeIndexRepository
 import com.nanoyatsu.example.clean.poke.presentation.detail.DetailFragmentArgs
 import com.nanoyatsu.example.clean.poke.presentation.detail.DetailViewModel
 import com.nanoyatsu.example.clean.poke.presentation.index.IndexViewModel
@@ -32,7 +34,8 @@ val appModule = module {
 
     // repository
     single { PokeIndexBoundaryCallback(get(), get(), get(), get()) }
-    single<PokeRepository> { PokeRepositoryImpl(get(), get(), get()) }
+    single<PokeIndexRepository> { PokeIndexRepositoryImpl(get(), get(), get()) }
+    single<PokeDetailRepository> { PokeDetailRepositoryImpl(get(), get()) }
 
     // useCase
     single { GetPokeList(get()) }

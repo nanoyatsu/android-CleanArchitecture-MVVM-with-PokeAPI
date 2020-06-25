@@ -1,4 +1,4 @@
-package com.nanoyatsu.example.clean.poke.domain.poke
+package com.nanoyatsu.example.clean.poke.domain.pokeDetail
 
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheAbilityWithName
 import com.nanoyatsu.example.clean.poke.data.database.relation.PokeCacheTypeWithName
@@ -34,8 +34,16 @@ data class PokeDetail(
                 name = data.poke.name,
                 height = data.poke.height / 10.0,
                 weight = data.poke.weight / 10.0,
-                abilities = data.abilities.map { PokeAbility.from(it) },
-                types = data.types.map { PokeType.from(it) },
+                abilities = data.abilities.map {
+                    PokeAbility.from(
+                        it
+                    )
+                },
+                types = data.types.map {
+                    PokeType.from(
+                        it
+                    )
+                },
                 statH = data.poke.statH,
                 statA = data.poke.statA,
                 statB = data.poke.statB,
@@ -61,7 +69,10 @@ data class PokeType(
 ) {
     companion object {
         fun from(data: PokeCacheTypeWithName): PokeType {
-            return PokeType(data.type.name, data.pokeType.slot)
+            return PokeType(
+                data.type.name,
+                data.pokeType.slot
+            )
         }
     }
 }
@@ -73,7 +84,11 @@ data class PokeAbility(
 ) {
     companion object {
         fun from(data: PokeCacheAbilityWithName): PokeAbility {
-            return PokeAbility(data.ability.name, data.pokeAbility.slot, data.pokeAbility.isHidden)
+            return PokeAbility(
+                data.ability.name,
+                data.pokeAbility.slot,
+                data.pokeAbility.isHidden
+            )
         }
     }
 }

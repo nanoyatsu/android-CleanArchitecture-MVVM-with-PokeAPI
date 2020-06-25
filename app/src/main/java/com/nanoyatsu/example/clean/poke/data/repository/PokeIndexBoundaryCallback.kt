@@ -7,7 +7,7 @@ import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
 import com.nanoyatsu.example.clean.poke.data.database.dao.PokeDao
 import com.nanoyatsu.example.clean.poke.data.database.entity.PokeIndexCache
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
-import com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage
+import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

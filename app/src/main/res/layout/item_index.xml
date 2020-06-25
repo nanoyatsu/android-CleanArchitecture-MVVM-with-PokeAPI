@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.nanoyatsu.example.clean.poke.domain.poke.PokeNameImage" />
+            type="com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage" />
 
         <variable
             name="nav"

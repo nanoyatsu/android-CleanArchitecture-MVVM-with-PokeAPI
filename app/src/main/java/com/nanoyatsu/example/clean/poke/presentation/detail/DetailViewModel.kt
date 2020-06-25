@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.nanoyatsu.example.clean.poke.domain.poke.GetPoke
-import com.nanoyatsu.example.clean.poke.domain.poke.PokeDetail
+import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPoke
+import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetail
 import timber.log.Timber
 
 class DetailViewModel(args: DetailFragmentArgs, getPoke: GetPoke) : ViewModel() {

@@ -8,8 +8,9 @@ import com.nanoyatsu.example.clean.poke.data.repository.PokeDetailRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexBoundaryCallback
 import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.PokeNetworkResource
-import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPoke
+import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
+import com.nanoyatsu.example.clean.poke.domain.pokeDetail.RefreshPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.GetPokeList
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeIndexRepository
 import com.nanoyatsu.example.clean.poke.presentation.detail.DetailFragmentArgs
@@ -40,11 +41,12 @@ val appModule = module {
 
     // useCase
     single { GetPokeList(get()) }
-    single { GetPoke(get()) }
+    single { GetPokeDetail(get()) }
+    single { RefreshPokeDetail(get()) }
 
     // viewModel
     viewModel { IndexViewModel(get()) }
-    viewModel { (args: DetailFragmentArgs) -> DetailViewModel(args, get()) }
+    viewModel { (args: DetailFragmentArgs) -> DetailViewModel(args, get(), get()) }
 
     // UI
 //    // スコープ理解不足

@@ -36,6 +36,7 @@ class PokeDetailRepositoryImpl(
     }
 
     override suspend fun refresh(id: Int): PokeDetail {
-        TODO("Not yet implemented")
+        val dbModel = fromNetworkWithCaching(id, networkResource, dao)
+        return PokeDetail.from(dbModel)
     }
 }

@@ -8,11 +8,12 @@ import com.nanoyatsu.example.clean.poke.R
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 import com.nanoyatsu.example.clean.poke.presentation.error.NetworkStateItemViewHolder
+import kotlin.reflect.KFunction0
 
 // memo : エラー表示で拡張するのでRecyclerView.ViewHolderのまま
 class IndexAdapter(
     private val navigation: IndexItemViewHolder.Navigation,
-    private val doRetry: () -> Unit
+    private val doRetry: KFunction0<Unit?>
 ) : PagedListAdapter<PokeNameImage, RecyclerView.ViewHolder>(DiffCallback()) {
     private var networkState: NetworkState? = NetworkState.Success
 

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nanoyatsu.example.clean.poke.databinding.ItemNetworkStateBinding
+import kotlin.reflect.KFunction0
 
 class NetworkStateItemViewHolder(
     val binding: ItemNetworkStateBinding
@@ -18,8 +19,8 @@ class NetworkStateItemViewHolder(
         }
     }
 
-    fun bind(message: String?, retry: () -> Unit) {
+    fun bind(message: String?, doRetry: KFunction0<Unit?>) {
         binding.message.text = message
-        binding.buttonRetry.setOnClickListener { retry() }
+        binding.buttonRetry.setOnClickListener { doRetry() }
     }
 }

@@ -33,7 +33,7 @@ class IndexFragment : Fragment() {
         // 描画設定
         binding.index.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.index.adapter = IndexAdapter(viewHolderNavigation, vm.doRetry())
+        binding.index.adapter = IndexAdapter(viewHolderNavigation, vm::doRetry)
 
         // ViewModel設定
         binding.vm = setupVm(vm)

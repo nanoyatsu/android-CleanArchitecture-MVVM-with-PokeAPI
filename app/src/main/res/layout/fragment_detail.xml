@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:onRefreshListener="@{() -> vm.doRefresh()}"
-        app:refreshingState="@{vm.isRefreshing()}">
+        app:refreshingState="@{vm.isRefreshing()}"
+        tools:showIn="@layout/activity_main">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -23,49 +24,137 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="20dp"
                 tools:context=".presentation.detail.DetailFragment">
+
+                <TextView
+                    android:id="@+id/number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/AppFont.Large"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:numberInt="@{vm.number}"
+                    tools:text="No.000" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/image"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_margin="12dp"
                     android:background="#CCCCCC"
                     app:imageUrl="@{vm.sprite}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/number" />
 
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:text="@{vm.name}"
+                    android:textAppearance="@style/AppFont.ExLarge"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/image"
-                    tools:text="bulbasaur" />
+                    tools:text="Bulbasaur" />
 
-                <TextView
-                    android:id="@+id/height"
-                    android:layout_width="wrap_content"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_size"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.height}"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/name"
-                    tools:text="7" />
+                    app:layout_constraintTop_toBottomOf="@id/name">
 
-                <TextView
-                    android:id="@+id/weight"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/label_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/poke_detail_label_size"
+                        android:textAppearance="@style/AppFont.Medium"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <include
+                        layout="@layout/component_double_labeled_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_size"
+                        app:leftLabelText="@{@string/poke_detail_label_height}"
+                        app:leftValueText="@{vm.height}"
+                        app:rightLabelText="@{@string/poke_detail_label_weight}"
+                        app:rightValueText="@{vm.weight}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_status"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1000dp"
-                    android:text="@{vm.weight}"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/height"
-                    tools:text="69" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_size">
+
+                    <TextView
+                        android:id="@+id/label_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/poke_detail_label_status"
+                        android:textAppearance="@style/AppFont.Medium"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <include
+                        android:id="@+id/status_ha"
+                        layout="@layout/component_double_labeled_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_status"
+                        app:leftLabelText="@{@string/poke_detail_label_hp}"
+                        app:leftValueText="@{vm.statH}"
+                        app:rightLabelText="@{@string/poke_detail_label_attack}"
+                        app:rightValueText="@{vm.statA}" />
+
+                    <include
+                        android:id="@+id/status_bc"
+                        layout="@layout/component_double_labeled_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/status_ha"
+                        app:leftLabelText="@{@string/poke_detail_label_defence}"
+                        app:leftValueText="@{vm.statB}"
+                        app:rightLabelText="@{@string/poke_detail_label_sp_attack}"
+                        app:rightValueText="@{vm.statC}" />
+
+                    <include
+                        android:id="@+id/status_ds"
+                        layout="@layout/component_double_labeled_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/status_bc"
+                        app:leftLabelText="@{@string/poke_detail_label_sp_defence}"
+                        app:leftValueText="@{vm.statD}"
+                        app:rightLabelText="@{@string/poke_detail_label_speed}"
+                        app:rightValueText="@{vm.statS}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

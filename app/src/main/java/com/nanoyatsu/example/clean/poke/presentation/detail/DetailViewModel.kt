@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.nanoyatsu.example.clean.poke.core.extension.proper
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.RefreshPokeDetail
@@ -15,15 +16,24 @@ class DetailViewModel(
     val refreshPokeDetail: RefreshPokeDetail
 ) :
     ViewModel() {
-    private val number = args.number
+    val number = args.number
 
     private val _poke = MutableLiveData<PokeDetail>()
     val poke: LiveData<PokeDetail> = _poke
 
     val sprite = Transformations.map(poke) { it.spriteFrontDefault }
-    val name = Transformations.map(poke) { it.name }
+    val name = Transformations.map(poke) { it.name.proper() }
     val height = Transformations.map(poke) { it.height.toString() }
     val weight = Transformations.map(poke) { it.weight.toString() }
+    // レイアウト作ってないのでタイプ・とくせいの表示してません
+    val types = Transformations.map(poke) { it.types }
+    val abilities = Transformations.map(poke) { it.abilities }
+    val statH = Transformations.map(poke) { it.statH.toString() }
+    val statA = Transformations.map(poke) { it.statA.toString() }
+    val statB = Transformations.map(poke) { it.statB.toString() }
+    val statC = Transformations.map(poke) { it.statC.toString() }
+    val statD = Transformations.map(poke) { it.statD.toString() }
+    val statS = Transformations.map(poke) { it.statS.toString() }
 
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean>

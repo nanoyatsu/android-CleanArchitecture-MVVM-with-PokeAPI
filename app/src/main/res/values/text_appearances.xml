@@ -17,4 +17,8 @@
     <style name="AppFont.Large">
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
+
+    <style name="AppFont.ExLarge">
+        <item name="android:textSize">@dimen/text_size_ex_large</item>
+    </style>
 </resources>

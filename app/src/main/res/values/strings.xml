@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">PokeClean</string>
+
+    <!--  fragment_detail.xml  -->
+    <string name="poke_detail_label_size">Size</string>
+    <string name="poke_detail_label_height">Height</string>
+    <string name="poke_detail_label_weight">Weight</string>
+    <string name="poke_detail_label_status">Status</string>
+    <string name="poke_detail_label_hp">Hp</string>
+    <string name="poke_detail_label_attack">Attack</string>
+    <string name="poke_detail_label_defence">Defence</string>
+    <string name="poke_detail_label_sp_attack">SpAttack</string>
+    <string name="poke_detail_label_sp_defence">SpDefence</string>
+    <string name="poke_detail_label_speed">Speed</string>
+
 </resources>

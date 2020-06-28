@@ -33,7 +33,7 @@ class IndexFragment : Fragment() {
         // 描画設定
         binding.index.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.index.adapter = IndexAdapter(viewHolderNavigation)
+        binding.index.adapter = IndexAdapter(viewHolderNavigation, vm.doRetry())
 
         // ViewModel設定
         binding.vm = setupVm(vm)
@@ -46,11 +46,8 @@ class IndexFragment : Fragment() {
     private fun setupVm(vm: IndexViewModel): IndexViewModel {
         val adapter = binding.index.adapter as IndexAdapter
         vm.pokeList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+        vm.networkState.observe(viewLifecycleOwner, Observer { adapter.setNetworkState(it) })
         return vm
-    }
-
-    companion object {
-        fun newInstance() = IndexFragment()
     }
 
     class Navigation(private val navHostActivity: Activity) : IndexItemViewHolder.Navigation {

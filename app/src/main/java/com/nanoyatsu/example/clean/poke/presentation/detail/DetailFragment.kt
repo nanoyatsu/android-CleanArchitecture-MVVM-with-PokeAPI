@@ -27,10 +27,6 @@ class DetailFragment : Fragment() {
 
         binding.vm = vm
         binding.lifecycleOwner = viewLifecycleOwner
-//        binding.fraTeki.text = args.number.toString()
     }
 
-    companion object {
-        fun newInstance() = DetailFragment()
-    }
 }

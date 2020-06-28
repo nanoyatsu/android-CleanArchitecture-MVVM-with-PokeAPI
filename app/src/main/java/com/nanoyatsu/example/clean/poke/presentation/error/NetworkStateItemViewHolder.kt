@@ -3,22 +3,22 @@ package com.nanoyatsu.example.clean.poke.presentation.error
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nanoyatsu.example.clean.poke.databinding.ItemErrorBinding
+import com.nanoyatsu.example.clean.poke.databinding.ItemNetworkStateBinding
 
-class ErrorViewHolder(
-    val binding: ItemErrorBinding
+class NetworkStateItemViewHolder(
+    val binding: ItemNetworkStateBinding
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
     companion object {
-        fun from(parent: ViewGroup): ErrorViewHolder {
-            val bind = ItemErrorBinding
+        fun from(parent: ViewGroup): NetworkStateItemViewHolder {
+            val bind = ItemNetworkStateBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
-            return ErrorViewHolder(bind)
+            return NetworkStateItemViewHolder(bind)
         }
     }
 
-    fun bind(message: String, retry: () -> Unit) {
+    fun bind(message: String?, retry: () -> Unit) {
         binding.message.text = message
         binding.buttonRetry.setOnClickListener { retry() }
     }

@@ -13,7 +13,7 @@
     <string name="poke_detail_label_sp_defence">SpDefence</string>
     <string name="poke_detail_label_speed">Speed</string>
 
-    <!--  item_error.xml  -->
+    <!--  item_network_state.xml  -->
     <string name="item_error_title">Error.</string>
     <string name="item_error_button">retry</string>
 

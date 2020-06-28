@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
 
-    // todo room
-    // todo cache
+    // todo layout for DetailFragment
+    // todo error handle for DetailFragment
+    // todo onError image (define by bindingAdapter)
 }

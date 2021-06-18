@@ -77,10 +77,10 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.6.0"
 
     // DI Koin
-    def koin_version = '2.1.5'
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-scope:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    def koin_version = '2.1.6'
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-scope:$koin_version"
+    implementation "io.insert-koin:koin-android-viewmodel:$koin_version"
 
     // Glide (image manage library)
     def glide_version = '4.10.0'

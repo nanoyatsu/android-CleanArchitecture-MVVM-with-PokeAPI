@@ -3,7 +3,7 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import me.sargunvohra.lib.pokekotlin.model.Pokemon
+import com.nanoyatsu.example.clean.poke.data.resource.network.model.Pokemon
 
 @Entity(tableName = "poke_cache")
 data class PokeCache(
@@ -45,12 +45,12 @@ data class PokeCache(
                 name = data.name,
                 height = data.height,
                 weight = data.weight,
-                statH = data.stats.find { it.stat.id == 1 }?.baseStat ?: 0,
-                statA = data.stats.find { it.stat.id == 2 }?.baseStat ?: 0,
-                statB = data.stats.find { it.stat.id == 3 }?.baseStat ?: 0,
-                statC = data.stats.find { it.stat.id == 4 }?.baseStat ?: 0,
-                statD = data.stats.find { it.stat.id == 5 }?.baseStat ?: 0,
-                statS = data.stats.find { it.stat.id == 6 }?.baseStat ?: 0,
+                statH = data.stats.find { it.id == 1 }?.baseStat ?: 0,
+                statA = data.stats.find { it.id == 2 }?.baseStat ?: 0,
+                statB = data.stats.find { it.id == 3 }?.baseStat ?: 0,
+                statC = data.stats.find { it.id == 4 }?.baseStat ?: 0,
+                statD = data.stats.find { it.id == 5 }?.baseStat ?: 0,
+                statS = data.stats.find { it.id == 6 }?.baseStat ?: 0,
                 spriteBackDefault = data.sprites.backDefault,
                 spriteBackShiny = data.sprites.backShiny,
                 spriteFrontDefault = data.sprites.frontDefault,

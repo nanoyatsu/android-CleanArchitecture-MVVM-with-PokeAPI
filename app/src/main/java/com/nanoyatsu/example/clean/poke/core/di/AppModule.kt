@@ -8,6 +8,7 @@ import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexBoundaryCallbac
 import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.database.PokeDataBase
 import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
+import com.nanoyatsu.example.clean.poke.data.resource.network.client.DummyPokeApi
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.RefreshPokeDetail
@@ -16,15 +17,13 @@ import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeIndexRepository
 import com.nanoyatsu.example.clean.poke.presentation.detail.DetailFragmentArgs
 import com.nanoyatsu.example.clean.poke.presentation.detail.DetailViewModel
 import com.nanoyatsu.example.clean.poke.presentation.index.IndexViewModel
-import me.sargunvohra.lib.pokekotlin.client.PokeApi
-import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
     // common
-    single<PokeApi> { PokeApiClient() }
+    single { DummyPokeApi() }
     factory { LiveNetworkState(NetworkState.Success) }
     factory { LiveRefreshingState(false) }
 

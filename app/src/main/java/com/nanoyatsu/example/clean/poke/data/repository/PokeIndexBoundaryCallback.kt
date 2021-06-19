@@ -7,11 +7,11 @@ import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
 import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeIndexDao
 import com.nanoyatsu.example.clean.poke.data.resource.database.entity.PokeIndexCache
 import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
+import com.nanoyatsu.example.clean.poke.data.resource.network.model.NamedApiResourceList
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import me.sargunvohra.lib.pokekotlin.model.NamedApiResourceList
 
 /**
  * Paging Libraryを使いたい関係で、UseCase部の裏口を通っている感が強い（再考の余地がありそう）

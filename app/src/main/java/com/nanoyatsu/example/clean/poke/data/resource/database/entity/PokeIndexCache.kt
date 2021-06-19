@@ -2,7 +2,7 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import me.sargunvohra.lib.pokekotlin.model.NamedApiResource
+import com.nanoyatsu.example.clean.poke.data.resource.network.model.NamedApiResource
 import java.util.*
 
 @Entity(tableName = "poke_index_cache")

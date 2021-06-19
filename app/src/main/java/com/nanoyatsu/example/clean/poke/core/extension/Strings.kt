@@ -2,7 +2,10 @@ package com.nanoyatsu.example.clean.poke.core.extension
 
 import java.util.*
 
-// excelにPROPERって関数があるらしいので・・・（わかってない）
+/***
+ * 先頭文字をUpperCaseにする。
+ * excelにPROPERって関数があるらしいので・・・（わかってない）
+ */
 fun String.proper(): String {
     return when (this.length) {
         0 -> ""

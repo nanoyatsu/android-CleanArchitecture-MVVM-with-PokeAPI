@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
-import me.sargunvohra.lib.pokekotlin.model.PokemonType
+import com.nanoyatsu.example.clean.poke.data.resource.network.model.PokemonType
 
 @Entity(
     tableName = "poke_type_cache",
@@ -16,8 +16,7 @@ import me.sargunvohra.lib.pokekotlin.model.PokemonType
             parentColumns = ["id"],
             childColumns = ["poke_id"],
             onDelete = ForeignKey.CASCADE
-        )
-        ,
+        ),
         ForeignKey(
             entity = TypeIndexCache::class,
             parentColumns = ["id"],

@@ -3,9 +3,9 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.relation
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.nanoyatsu.example.clean.poke.data.resource.database.entity.*
-import me.sargunvohra.lib.pokekotlin.model.Pokemon
-import me.sargunvohra.lib.pokekotlin.model.PokemonAbility
-import me.sargunvohra.lib.pokekotlin.model.PokemonType
+import com.nanoyatsu.example.clean.poke.data.resource.network.model.Pokemon
+import com.nanoyatsu.example.clean.poke.data.resource.network.model.PokemonAbility
+import com.nanoyatsu.example.clean.poke.data.resource.network.model.PokemonType
 
 data class PokeCacheWithTypeAndAbility(
     @Embedded val poke: PokeCache,

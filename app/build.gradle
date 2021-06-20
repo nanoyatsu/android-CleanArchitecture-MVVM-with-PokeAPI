@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: "com.apollographql.apollo"
 
 android {
     compileSdkVersion 29
@@ -90,10 +91,23 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
-    // todo add implementation GraphQL Apollo Client.
-    // delete PokeKotlin(pokeAPI). migrate to https://github.com/lucasbento/graphql-pokemon .
+    // Apollo GraphQL Client
+    implementation "com.apollographql.apollo:apollo-runtime:$apollo_graphql_version"
+    implementation "com.apollographql.apollo:apollo-coroutines-support:$apollo_graphql_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+apollo {
+    // apollo-graphQLの設定
+    // memo : スキーマ更新
+    // Graphql-Pokemon : ./gradlew downloadApolloSchema --endpoint="https://graphql-pokemon2.vercel.app/" --schema="app/src/main/graphql/graphql-pokemon/schema.json"
+
+    generateKotlinModels.set(true)
+    service("graphql-pokemon") {
+        sourceFolder = "graphql-pokemon"
+        rootPackageName.set("com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon")
+    }
 }

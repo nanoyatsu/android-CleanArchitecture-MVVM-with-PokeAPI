@@ -1,0 +1,30 @@
+query FetchPokemons($first: Int!) {
+    pokemons(first: $first) {
+        id
+        number
+        name
+        weight {
+            minimum
+            maximum
+        }
+        height {
+            minimum
+            maximum
+        }
+        classification
+        types
+        resistant
+        weaknesses
+        fleeRate
+        maxCP
+        maxHP
+        evolutions {
+            id
+            number
+            name
+            types
+            image
+        }
+        image
+    }
+}

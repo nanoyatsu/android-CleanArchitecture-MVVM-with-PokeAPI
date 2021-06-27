@@ -1,13 +1,14 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
 import androidx.paging.PagedList
+import com.apollographql.apollo.api.Response
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveNetworkState
 import com.nanoyatsu.example.clean.poke.core.dataclass.LiveRefreshingState
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
 import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeIndexDao
 import com.nanoyatsu.example.clean.poke.data.resource.database.entity.PokeIndexCache
 import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
-import com.nanoyatsu.example.clean.poke.data.resource.network.model.NamedApiResourceList
+import com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon.query.FetchPokemonsQuery
 import com.nanoyatsu.example.clean.poke.domain.pokeIndex.PokeNameImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,12 +30,20 @@ class PokeIndexBoundaryCallback(
     private var retry: (() -> Unit)? = null
 
     private suspend fun tryLoad(
-        getter: suspend () -> NamedApiResourceList,
+        getter: suspend () -> Response<FetchPokemonsQuery.Data>,
         retry: () -> Unit
     ) {
         try {
             val response = getter()
-            val dbModel = response.results.map { PokeIndexCache.from(it) }
+            val data = response.data
+            if (data == null) {
+                val errors = requireNotNull(response.errors) { "errors are null." }
+                val message = if (errors.isNotEmpty()) errors.first().message
+                else "error is empty"
+                throw Exception(message)
+            }
+            requireNotNull(data.pokemons) { "response data is null." }
+            val dbModel = data.pokemons.map { PokeIndexCache.from(requireNotNull(it)) }
             dao.insertAllPokeIndex(dbModel)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -46,7 +55,7 @@ class PokeIndexBoundaryCallback(
     override fun onZeroItemsLoaded() {
         isRefreshing.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
-            val getter = suspend { networkResource.list(0, PAGE_SIZE) }
+            val getter = suspend { networkResource.list(PokeNetworkResource.FETCH_POKEMONS_COUNT) }
             tryLoad(getter) { onZeroItemsLoaded() }
             isRefreshing.postValue(false)
 
@@ -54,10 +63,11 @@ class PokeIndexBoundaryCallback(
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: PokeNameImage) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val getter = suspend { networkResource.list(itemAtEnd.number, PAGE_SIZE) }
-            tryLoad(getter) { onItemAtEndLoaded(itemAtEnd) }
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val getter = suspend { networkResource.list(itemAtEnd.number, PAGE_SIZE) }
+//            tryLoad(getter) { onItemAtEndLoaded(itemAtEnd) }
+//        }
+        // 151件取得固定なのでいったん何もしない
     }
 
     override fun onItemAtFrontLoaded(itemAtFront: PokeNameImage) {

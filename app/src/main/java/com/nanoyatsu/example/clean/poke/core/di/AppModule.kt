@@ -8,7 +8,7 @@ import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexBoundaryCallbac
 import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.database.PokeDataBase
 import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
-import com.nanoyatsu.example.clean.poke.data.resource.network.client.DummyPokeApi
+import com.nanoyatsu.example.clean.poke.data.resource.network.client.GraphQlPokemonClient
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.RefreshPokeDetail
@@ -19,11 +19,12 @@ import com.nanoyatsu.example.clean.poke.presentation.detail.DetailViewModel
 import com.nanoyatsu.example.clean.poke.presentation.index.IndexViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 
 val appModule = module {
     // common
-    single { DummyPokeApi() }
+    single(qualifier<GraphQlPokemonClient>()) { GraphQlPokemonClient.get() }
     factory { LiveNetworkState(NetworkState.Success) }
     factory { LiveRefreshingState(false) }
 
@@ -31,12 +32,12 @@ val appModule = module {
     single { PokeDataBase.getInstance(androidApplication().applicationContext) }
     single { get<PokeDataBase>().pokeIndexDao() }
     single { get<PokeDataBase>().pokeDetailDao() }
-    single { PokeNetworkResource(get()) }
+    single { PokeNetworkResource(get(qualifier<GraphQlPokemonClient>())) }
 
     // repository
     single { PokeIndexBoundaryCallback(get(), get(), get(), get()) }
     single<PokeIndexRepository> { PokeIndexRepositoryImpl(get(), get(), get()) }
-    single<PokeDetailRepository> { PokeDetailRepositoryImpl(get(), get()) }
+    single<PokeDetailRepository> { PokeDetailRepositoryImpl(get(), get(), get()) }
 
     // useCase
     single { GetPokeList(get()) }

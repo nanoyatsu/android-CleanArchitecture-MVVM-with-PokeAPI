@@ -2,8 +2,7 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.nanoyatsu.example.clean.poke.data.resource.network.model.NamedApiResource
-import java.util.*
+import com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon.query.FetchPokemonsQuery
 
 @Entity(tableName = "poke_index_cache")
 data class PokeIndexCache(
@@ -11,10 +10,10 @@ data class PokeIndexCache(
     val name: String
 ) {
     companion object {
-        fun from(data: NamedApiResource): PokeIndexCache {
-            if (data.category != "pokemon")
-                throw InvalidPropertiesFormatException("required data.category == pokemon")
-            return PokeIndexCache(data.id, data.name)
+        fun from(data: FetchPokemonsQuery.Pokemon): PokeIndexCache {
+            val num = data.number?.toIntOrNull() ?: -1
+            val name = data.name ?: "ERROR_NAME"
+            return PokeIndexCache(num, name)
         }
     }
 }

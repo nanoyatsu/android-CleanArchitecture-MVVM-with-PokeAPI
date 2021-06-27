@@ -1,6 +1,7 @@
 package com.nanoyatsu.example.clean.poke.data.repository
 
 import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeDetailDao
+import com.nanoyatsu.example.clean.poke.data.resource.database.dao.PokeIndexDao
 import com.nanoyatsu.example.clean.poke.data.resource.database.relation.PokeCacheWithTypeAndAbility
 import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetail
@@ -8,19 +9,22 @@ import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
 
 class PokeDetailRepositoryImpl(
     private val networkResource: PokeNetworkResource,
-    private val dao: PokeDetailDao
+    private val dao: PokeDetailDao,
+    private val indexDao: PokeIndexDao
 ) : PokeDetailRepository {
     override suspend fun get(id: Int): PokeDetail {
+        val name = indexDao.getPoke(id)?.name ?: ""
         val dbModel = dao.getPoke(id)
-            ?: fromNetworkWithCaching(id, networkResource, dao)
+            ?: fromNetworkWithCaching(name, networkResource, dao)
         return PokeDetail.from(dbModel)
     }
 
     private suspend fun fromNetworkWithCaching(
-        id: Int, api: PokeNetworkResource, dao: PokeDetailDao
+        name: String, api: PokeNetworkResource, dao: PokeDetailDao
     ): PokeCacheWithTypeAndAbility {
-        val convertedApiResult = api.get(id)
-            .let(PokeCacheWithTypeAndAbility.Companion::from)
+        val result = api.get(name)
+        val convertedApiResult = result.data?.pokemon
+            .let { PokeCacheWithTypeAndAbility.from(it) }
         insertPokeCacheWithTypeAndAbility(convertedApiResult, dao)
         return convertedApiResult
     }
@@ -36,7 +40,8 @@ class PokeDetailRepositoryImpl(
     }
 
     override suspend fun refresh(id: Int): PokeDetail {
-        val dbModel = fromNetworkWithCaching(id, networkResource, dao)
+        val name = indexDao.getPoke(id)?.name ?: ""
+        val dbModel = fromNetworkWithCaching(name, networkResource, dao)
         return PokeDetail.from(dbModel)
     }
 }

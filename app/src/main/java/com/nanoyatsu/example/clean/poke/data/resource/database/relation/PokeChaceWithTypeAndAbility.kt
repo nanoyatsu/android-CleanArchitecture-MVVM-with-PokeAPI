@@ -3,7 +3,7 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.relation
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.nanoyatsu.example.clean.poke.data.resource.database.entity.*
-import com.nanoyatsu.example.clean.poke.data.resource.network.model.Pokemon
+import com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon.query.SearchPokemonQuery
 import com.nanoyatsu.example.clean.poke.data.resource.network.model.PokemonAbility
 import com.nanoyatsu.example.clean.poke.data.resource.network.model.PokemonType
 
@@ -15,11 +15,13 @@ data class PokeCacheWithTypeAndAbility(
     val abilities: List<PokeCacheAbilityWithName>
 ) {
     companion object {
-        fun from(data: Pokemon): PokeCacheWithTypeAndAbility {
+        fun from(data: SearchPokemonQuery.Pokemon?): PokeCacheWithTypeAndAbility {
+            // fixme いまは適当
+            requireNotNull(data){"あとでけす"}
             return PokeCacheWithTypeAndAbility(
                 poke = PokeCache.from(data),
-                types = data.types.map { PokeCacheTypeWithName.from(data.id, it) },
-                abilities = data.abilities.map { PokeCacheAbilityWithName.from(data.id, it) }
+                types = emptyList(),
+                abilities = emptyList()
             )
         }
     }

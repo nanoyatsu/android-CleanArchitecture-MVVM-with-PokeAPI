@@ -3,7 +3,7 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.nanoyatsu.example.clean.poke.data.resource.network.model.Pokemon
+import com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon.query.SearchPokemonQuery
 
 @Entity(tableName = "poke_cache")
 data class PokeCache(
@@ -39,26 +39,43 @@ data class PokeCache(
     @ColumnInfo(name = "sprite_front_shiny_female") val spriteFrontShinyFemale: String?
 ) {
     companion object {
-        fun from(data: Pokemon): PokeCache {
+        fun from(data: SearchPokemonQuery.Pokemon?): PokeCache {
             return PokeCache(
-                id = data.id,
-                name = data.name,
-                height = data.height,
-                weight = data.weight,
-                statH = data.stats.find { it.id == 1 }?.baseStat ?: 0,
-                statA = data.stats.find { it.id == 2 }?.baseStat ?: 0,
-                statB = data.stats.find { it.id == 3 }?.baseStat ?: 0,
-                statC = data.stats.find { it.id == 4 }?.baseStat ?: 0,
-                statD = data.stats.find { it.id == 5 }?.baseStat ?: 0,
-                statS = data.stats.find { it.id == 6 }?.baseStat ?: 0,
-                spriteBackDefault = data.sprites.backDefault,
-                spriteBackShiny = data.sprites.backShiny,
-                spriteFrontDefault = data.sprites.frontDefault,
-                spriteFrontShiny = data.sprites.frontShiny,
-                spriteBackFemale = data.sprites.backFemale,
-                spriteBackShinyFemale = data.sprites.backShinyFemale,
-                spriteFrontFemale = data.sprites.frontFemale,
-                spriteFrontShinyFemale = data.sprites.frontShinyFemale
+                id = data?.number?.toInt() ?: -1,
+                name = data?.name ?: "",
+                // fixme PokeAPIのGraphQL版で書き直すことにしたので、型はそのままにして種族値とかは適当な値
+//                height = data.height,
+//                weight = data.weight,
+//                statH = data.stats.find { it.id == 1 }?.baseStat ?: 0,
+//                statA = data.stats.find { it.id == 2 }?.baseStat ?: 0,
+//                statB = data.stats.find { it.id == 3 }?.baseStat ?: 0,
+//                statC = data.stats.find { it.id == 4 }?.baseStat ?: 0,
+//                statD = data.stats.find { it.id == 5 }?.baseStat ?: 0,
+//                statS = data.stats.find { it.id == 6 }?.baseStat ?: 0,
+//                spriteBackDefault = data.sprites.backDefault,
+//                spriteBackShiny = data.sprites.backShiny,
+//                spriteFrontDefault = data.sprites.frontDefault,
+//                spriteFrontShiny = data.sprites.frontShiny,
+//                spriteBackFemale = data.sprites.backFemale,
+//                spriteBackShinyFemale = data.sprites.backShinyFemale,
+//                spriteFrontFemale = data.sprites.frontFemale,
+//                spriteFrontShinyFemale = data.sprites.frontShinyFemale
+                height = 0,
+                weight = 0,
+                statH = 0,
+                statA = 0,
+                statB = 0,
+                statC = 0,
+                statD = 0,
+                statS = 0,
+                spriteBackDefault = null,
+                spriteBackShiny = null,
+                spriteFrontDefault = data?.image,
+                spriteFrontShiny = null,
+                spriteBackFemale = null,
+                spriteBackShinyFemale = null,
+                spriteFrontFemale = null,
+                spriteFrontShinyFemale = null
             )
         }
     }

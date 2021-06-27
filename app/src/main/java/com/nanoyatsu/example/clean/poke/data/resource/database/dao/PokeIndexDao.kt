@@ -17,4 +17,7 @@ interface PokeIndexDao {
 
     @Query("SELECT * FROM poke_index_cache ORDER BY number")
     fun getPokeIndex(): DataSource.Factory<Int, PokeIndexCache>
+
+    @Query("SELECT * FROM poke_index_cache WHERE number == :number")
+    suspend fun getPoke(number: Int): PokeIndexCache?
 }

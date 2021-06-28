@@ -7,7 +7,6 @@ apply plugin: "com.apollographql.apollo"
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.nanoyatsu.example.clean.poke"
@@ -42,8 +41,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // はじめに使いそうな依存先implementationをコメントアウトして並べておいた　使いたくなったら有効にする
 
     // basic component (by androidx)
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -87,8 +84,6 @@ dependencies {
     def glide_version = '4.10.0'
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     // Apollo GraphQL Client

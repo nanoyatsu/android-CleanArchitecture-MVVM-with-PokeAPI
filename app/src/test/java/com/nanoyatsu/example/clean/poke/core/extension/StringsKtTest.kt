@@ -7,7 +7,6 @@ class StringsKtTest {
 
     @Test
     fun proper() {
-        Assert.assertNotNull("ここでエラー assertNotNull(null).",null)
         Assert.assertEquals("`empty`.proper()", "", "".proper())
         Assert.assertEquals("a.proper()", "A", "a".proper())
         Assert.assertEquals("aa.proper()", "Aa", "aa".proper())

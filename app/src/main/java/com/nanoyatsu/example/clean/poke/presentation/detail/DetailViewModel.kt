@@ -1,9 +1,6 @@
 package com.nanoyatsu.example.clean.poke.presentation.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.nanoyatsu.example.clean.poke.core.extension.proper
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetail
@@ -54,11 +51,11 @@ class DetailViewModel(
 
     init {
         _isRefreshing.value = true
-        getPokeDetail(number, setPokeDetail)
+        getPokeDetail(viewModelScope, number, setPokeDetail)
     }
 
     fun doRefresh() {
         _isRefreshing.value = true
-        refreshPokeDetail(number, setPokeDetail)
+        refreshPokeDetail(viewModelScope, number, setPokeDetail)
     }
 }

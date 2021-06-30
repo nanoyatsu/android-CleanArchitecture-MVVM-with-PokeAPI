@@ -3,6 +3,7 @@ package com.nanoyatsu.example.clean.poke.presentation.index
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import com.nanoyatsu.example.clean.poke.core.dataclass.Listing
 import com.nanoyatsu.example.clean.poke.core.dataclass.NetworkState
@@ -44,6 +45,6 @@ class IndexViewModel(getPokeList: GetPokeList) : ViewModel() {
 
     init {
         Timber.d("IndexViewModel init")
-        getPokeList(Unit, getListOnResult)
+        getPokeList(viewModelScope, Unit, getListOnResult)
     }
 }

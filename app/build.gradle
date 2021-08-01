@@ -119,10 +119,16 @@ apollo {
     // apollo-graphQLの設定
     // memo : スキーマ更新
     // Graphql-Pokemon : ./gradlew downloadApolloSchema --endpoint="https://graphql-pokemon2.vercel.app/" --schema="app/src/main/graphql/graphql-pokemon/schema.json"
+    // PokeAPI : ./gradlew downloadApolloSchema --endpoint="https://beta.pokeapi.co/graphql/v1beta" --schema="app/src/main/graphql/pokeAPI/schema.json" --service="PokeAPI"
 
     generateKotlinModels.set(true)
     service("graphql-pokemon") {
         sourceFolder = "graphql-pokemon"
         rootPackageName.set("com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon")
+    }
+
+    service("PokeAPI") {
+        sourceFolder = "PokeAPI"
+        rootPackageName.set("com.nanoyatsu.example.clean.poke.data.resource.network.pokeApi")
     }
 }

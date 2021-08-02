@@ -22,6 +22,7 @@ class DetailViewModel(
     val name = Transformations.map(poke) { it.name.proper() }
     val height = Transformations.map(poke) { it.height.toString() }
     val weight = Transformations.map(poke) { it.weight.toString() }
+
     // レイアウト作ってないのでタイプ・とくせいの表示してません
     val types = Transformations.map(poke) { it.types }
     val abilities = Transformations.map(poke) { it.abilities }
@@ -36,6 +37,10 @@ class DetailViewModel(
     val isRefreshing: LiveData<Boolean>
         get() = _isRefreshing
 
+    private val _simpleMessage = MutableLiveData<String>("")
+    val simpleMessage: LiveData<String>
+        get() = _simpleMessage
+
     private val setPokeDetail: (Result<PokeDetail>) -> Unit = { result ->
         result
             .onSuccess {
@@ -45,6 +50,7 @@ class DetailViewModel(
             }
             .onFailure {
                 Timber.d("onFailure")
+                _simpleMessage.value = it.message
                 _isRefreshing.value = false
             }
     }

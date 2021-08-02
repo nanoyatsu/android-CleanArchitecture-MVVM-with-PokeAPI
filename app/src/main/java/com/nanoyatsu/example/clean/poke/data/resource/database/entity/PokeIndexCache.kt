@@ -3,6 +3,7 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon.query.FetchPokemonsQuery
+import com.nanoyatsu.example.clean.poke.data.resource.network.pokeApi.query.FetchPokedexQuery
 
 @Entity(tableName = "poke_index_cache")
 data class PokeIndexCache(
@@ -14,6 +15,10 @@ data class PokeIndexCache(
             val num = data.number?.toIntOrNull() ?: -1
             val name = data.name ?: "ERROR_NAME"
             return PokeIndexCache(num, name)
+        }
+
+        fun from(data: FetchPokedexQuery.Pokemon_v2_pokemon): PokeIndexCache {
+            return PokeIndexCache(data.id, data.name)
         }
     }
 }

@@ -9,6 +9,7 @@ import com.nanoyatsu.example.clean.poke.data.repository.PokeIndexRepositoryImpl
 import com.nanoyatsu.example.clean.poke.data.resource.database.PokeDataBase
 import com.nanoyatsu.example.clean.poke.data.resource.network.PokeNetworkResource
 import com.nanoyatsu.example.clean.poke.data.resource.network.client.GraphQlPokemonClient
+import com.nanoyatsu.example.clean.poke.data.resource.network.client.PokeApiClient
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.GetPokeDetail
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.PokeDetailRepository
 import com.nanoyatsu.example.clean.poke.domain.pokeDetail.RefreshPokeDetail
@@ -24,7 +25,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     // common
-    single(qualifier<GraphQlPokemonClient>()) { GraphQlPokemonClient.get() }
+    single(qualifier<PokeApiClient>()) { PokeApiClient.get() }
     factory { LiveNetworkState(NetworkState.Success) }
     factory { LiveRefreshingState(false) }
 
@@ -32,7 +33,7 @@ val appModule = module {
     single { PokeDataBase.getInstance(androidApplication().applicationContext) }
     single { get<PokeDataBase>().pokeIndexDao() }
     single { get<PokeDataBase>().pokeDetailDao() }
-    single { PokeNetworkResource(get(qualifier<GraphQlPokemonClient>())) }
+    single { PokeNetworkResource(get(qualifier<PokeApiClient>())) }
 
     // repository
     single { PokeIndexBoundaryCallback(get(), get(), get(), get()) }

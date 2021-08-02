@@ -1,8 +1,8 @@
-query FetchPokedex($limit:Int!,$offset:Int!){
+query FetchPokedex($offset:Int!,$limit:Int!){
     pokemon_v2_pokemon(
-        distinct_on: [],
-        limit: $limit,
         offset: $offset
+        limit: $limit,
+        distinct_on: [],
         order_by: [],
         where: {}
     ) {

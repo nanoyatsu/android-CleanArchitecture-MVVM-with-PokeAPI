@@ -41,16 +41,18 @@ class PokeIndexRepositoryImpl(
         CoroutineScope(context = Dispatchers.IO).launch {
             Timber.d("onRefresh")
             try {
-                val response = networkResource.list(PokeNetworkResource.FETCH_POKEMONS_COUNT)
-                    .data?.pokemons?.map { PokeIndexCache.from(requireNotNull(it)) }
-                    ?: throw Exception("cannot get data on refresh.")
-                if (response.isEmpty())
-                    throw Exception("data is missing. cannot refresh.")
+                val response = networkResource.list(0, PokeIndexBoundaryCallback.PAGE_SIZE)
+                val data = response.data?.pokemon_v2_pokemon?.map { PokeIndexCache.from(it) }
+                    ?: throw Exception("data is missing. cannot refresh.")
+//                    .results.map { PokeIndexCache.from(it) }
+//                val response = networkResource.list(PokeNetworkResource.FETCH_POKEMONS_COUNT)
+//                    .data?.pokemons?.map { PokeIndexCache.from(requireNotNull(it)) }
+//                    ?: throw Exception("cannot get data on refresh.")
 
                 // fixme 読み込み関数に「キャッシュ無視」オプションをつけるように変更
                 // 削除だけでもpagingがいい感じにやってくれる（削除→０件表示→onZeroItemsLoaded）
                 dao.deleteAllPokeIndex()
-                dao.insertAllPokeIndex(response)
+                dao.insertAllPokeIndex(data)
             } catch (e: Exception) {
                 val message = e.message ?: "unknown error"
                 networkState.postValue(NetworkState.Failed(message))

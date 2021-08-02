@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon.query.SearchPokemonQuery
+import com.nanoyatsu.example.clean.poke.data.resource.network.pokeApi.query.FetchPokeDetailQuery
 
 @Entity(tableName = "poke_cache")
 data class PokeCache(
@@ -39,38 +40,23 @@ data class PokeCache(
     @ColumnInfo(name = "sprite_front_shiny_female") val spriteFrontShinyFemale: String?
 ) {
     companion object {
-        fun from(data: SearchPokemonQuery.Pokemon?): PokeCache {
+        fun from(data: FetchPokeDetailQuery.Pokemon_v2_pokemon): PokeCache {
             return PokeCache(
-                id = data?.number?.toInt() ?: -1,
-                name = data?.name ?: "",
-                // fixme PokeAPIのGraphQL版で書き直すことにしたので、型はそのままにして種族値とかは適当な値
-//                height = data.height,
-//                weight = data.weight,
-//                statH = data.stats.find { it.id == 1 }?.baseStat ?: 0,
-//                statA = data.stats.find { it.id == 2 }?.baseStat ?: 0,
-//                statB = data.stats.find { it.id == 3 }?.baseStat ?: 0,
-//                statC = data.stats.find { it.id == 4 }?.baseStat ?: 0,
-//                statD = data.stats.find { it.id == 5 }?.baseStat ?: 0,
-//                statS = data.stats.find { it.id == 6 }?.baseStat ?: 0,
-//                spriteBackDefault = data.sprites.backDefault,
-//                spriteBackShiny = data.sprites.backShiny,
-//                spriteFrontDefault = data.sprites.frontDefault,
-//                spriteFrontShiny = data.sprites.frontShiny,
-//                spriteBackFemale = data.sprites.backFemale,
-//                spriteBackShinyFemale = data.sprites.backShinyFemale,
-//                spriteFrontFemale = data.sprites.frontFemale,
-//                spriteFrontShinyFemale = data.sprites.frontShinyFemale
-                height = 0,
-                weight = 0,
-                statH = 0,
-                statA = 0,
-                statB = 0,
-                statC = 0,
-                statD = 0,
-                statS = 0,
+                id = data.id,
+                name = data.name,
+                height = data.height ?: 0,
+                weight = data.weight ?: 0,
+                // fixme use stats.id master
+                statH = data.pokemon_v2_pokemonstats.find { it.stat_id == 1 }?.base_stat ?: 0,
+                statA = data.pokemon_v2_pokemonstats.find { it.stat_id == 2 }?.base_stat ?: 0,
+                statB = data.pokemon_v2_pokemonstats.find { it.stat_id == 3 }?.base_stat ?: 0,
+                statC = data.pokemon_v2_pokemonstats.find { it.stat_id == 4 }?.base_stat ?: 0,
+                statD = data.pokemon_v2_pokemonstats.find { it.stat_id == 5 }?.base_stat ?: 0,
+                statS = data.pokemon_v2_pokemonstats.find { it.stat_id == 6 }?.base_stat ?: 0,
                 spriteBackDefault = null,
                 spriteBackShiny = null,
-                spriteFrontDefault = data?.image,
+//                spriteFrontDefault = data.pokemon_v2_pokemonsprites.,
+                spriteFrontDefault = null,
                 spriteFrontShiny = null,
                 spriteBackFemale = null,
                 spriteBackShinyFemale = null,

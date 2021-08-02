@@ -3,9 +3,9 @@ package com.nanoyatsu.example.clean.poke.data.resource.database.relation
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.nanoyatsu.example.clean.poke.data.resource.database.entity.*
-import com.nanoyatsu.example.clean.poke.data.resource.network.graphql.pokemon.query.SearchPokemonQuery
 import com.nanoyatsu.example.clean.poke.data.resource.network.model.PokemonAbility
 import com.nanoyatsu.example.clean.poke.data.resource.network.model.PokemonType
+import com.nanoyatsu.example.clean.poke.data.resource.network.pokeApi.query.FetchPokeDetailQuery
 
 data class PokeCacheWithTypeAndAbility(
     @Embedded val poke: PokeCache,
@@ -15,9 +15,7 @@ data class PokeCacheWithTypeAndAbility(
     val abilities: List<PokeCacheAbilityWithName>
 ) {
     companion object {
-        fun from(data: SearchPokemonQuery.Pokemon?): PokeCacheWithTypeAndAbility {
-            // fixme いまは適当
-            requireNotNull(data){"あとでけす"}
+        fun from(data: FetchPokeDetailQuery.Pokemon_v2_pokemon): PokeCacheWithTypeAndAbility {
             return PokeCacheWithTypeAndAbility(
                 poke = PokeCache.from(data),
                 types = emptyList(),

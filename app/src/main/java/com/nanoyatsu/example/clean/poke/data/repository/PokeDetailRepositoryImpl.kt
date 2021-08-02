@@ -13,17 +13,19 @@ class PokeDetailRepositoryImpl(
     private val indexDao: PokeIndexDao
 ) : PokeDetailRepository {
     override suspend fun get(id: Int): PokeDetail {
-        val name = indexDao.getPoke(id)?.name ?: ""
         val dbModel = dao.getPoke(id)
-            ?: fromNetworkWithCaching(name, networkResource, dao)
+            ?: fromNetworkWithCaching(id, networkResource, dao)
         return PokeDetail.from(dbModel)
     }
 
     private suspend fun fromNetworkWithCaching(
-        name: String, api: PokeNetworkResource, dao: PokeDetailDao
+        id: Int, api: PokeNetworkResource, dao: PokeDetailDao
     ): PokeCacheWithTypeAndAbility {
-        val result = api.get(name)
-        val convertedApiResult = result.data?.pokemon
+        val result = api.get(id)
+        val data = result.data ?: throw Exception("detail情報が空")
+        val first = data.pokemon_v2_pokemon.firstOrNull() ?: throw Exception("検索結果が空")
+
+        val convertedApiResult = first
             .let { PokeCacheWithTypeAndAbility.from(it) }
         insertPokeCacheWithTypeAndAbility(convertedApiResult, dao)
         return convertedApiResult
@@ -40,8 +42,7 @@ class PokeDetailRepositoryImpl(
     }
 
     override suspend fun refresh(id: Int): PokeDetail {
-        val name = indexDao.getPoke(id)?.name ?: ""
-        val dbModel = fromNetworkWithCaching(name, networkResource, dao)
+        val dbModel = fromNetworkWithCaching(id, networkResource, dao)
         return PokeDetail.from(dbModel)
     }
 }

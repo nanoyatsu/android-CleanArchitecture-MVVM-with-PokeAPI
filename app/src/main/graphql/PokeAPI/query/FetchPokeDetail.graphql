@@ -1,0 +1,31 @@
+query FetchPokeDetail($where:pokemon_v2_pokemon_bool_exp!){
+    pokemon_v2_pokemon(limit:1,where:$where) {
+        id,
+        name,
+        height,
+        weight,
+        pokemon_v2_pokemonstats{
+            id,
+            stat_id,
+            base_stat,
+            effort,
+        },
+        pokemon_v2_pokemonsprites{
+            id,sprites
+        },
+        pokemon_v2_pokemontypes{
+            id
+            type_id,
+            slot,
+        },
+        pokemon_v2_pokemonabilities{
+            id,
+            ability_id,
+            pokemon_v2_ability{
+                id,name
+            },
+            is_hidden,
+            slot,
+        }
+    }
+}

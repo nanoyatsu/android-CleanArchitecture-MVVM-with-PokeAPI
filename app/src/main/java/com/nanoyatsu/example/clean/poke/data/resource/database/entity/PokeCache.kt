@@ -55,6 +55,7 @@ data class PokeCache(
                 statS = data.pokemon_v2_pokemonstats.find { it.stat_id == 6 }?.base_stat ?: 0,
                 spriteBackDefault = null,
                 spriteBackShiny = null,
+                // todo 画像がJson入りに変更されている JSONパースとDefault取得をして表示
 //                spriteFrontDefault = data.pokemon_v2_pokemonsprites.,
                 spriteFrontDefault = null,
                 spriteFrontShiny = null,
